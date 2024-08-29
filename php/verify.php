@@ -83,9 +83,6 @@ function displayPopup($message) {
     </html>';
 }
 
-// Débogage : vérifier le contenu de la session
-var_dump($_SESSION);
-
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
 
