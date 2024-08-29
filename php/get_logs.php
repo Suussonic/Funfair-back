@@ -1,4 +1,3 @@
-
 <?php
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
