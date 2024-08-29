@@ -76,7 +76,7 @@ function displayPopup($message) {
         <div class="popup-overlay">
             <div class="popup-content">
                 <h1>Accès Refusé</h1>
-                <p>' . htmlspecialchars($message) . '</p>
+                <p>Vous devez être admin</p>
                 <button onclick="window.location.href=\'https://funfair.ovh\'">Retour à l\'accueil</button>
             </div>
         </div>
