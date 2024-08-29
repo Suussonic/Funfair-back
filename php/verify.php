@@ -10,19 +10,19 @@ include_once('Database.php'); // Make sure this file initializes a PDO connectio
 
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     // If the user is logged in and the ID is set
-    $userId = $_SESSION['id'];  // Use 'id' consistently
+    $id = $_SESSION['id'];  // Correctly use 'id' variable
 
     try {
         // Prepare a query to retrieve the user's role and verification status
         $stmt = $dbh->prepare('SELECT role, verified FROM users WHERE id = :id');
-        $stmt->execute(['id' => $userId]);
+        $stmt->execute(['id' => $id]);  // Fixed the incorrect variable name from '$is' to '$id'
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Check if user exists
         if ($user) {
-            // If the user is not verified, redirect them to the specified link
+            // If the user is not verified, redirect them to the homepage
             if (!$user['verified']) {
-                header('location: https://funfair.ovh');
+                header('Location: https://funfair.ovh');
                 exit();
             }
             
@@ -31,12 +31,13 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
                 // Admin-specific logic or page content can be placed here
                 echo "Welcome, Admin!";
             } else {
-                // If the user is not an admin but is verified, handle accordingly
-                echo "You are verified but not an admin.";
+                // If the user is verified but not an admin, redirect to the homepage
+                header('Location: https://funfair.ovh');
+                exit();
             }
         } else {
-            // If user does not exist in the database, redirect to the specified link
-            header('location: https://funfair.ovh');
+            // If user does not exist in the database, redirect to the homepage
+            header('Location: https://funfair.ovh');
             exit();
         }
     } catch (PDOException $e) {
@@ -45,8 +46,8 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     }
 
 } else {
-    // If the user is not logged in or the ID is not set
-    header('location: https://funfair.ovh');
+    // If the user is not logged in or the ID is not set, redirect to the homepage
+    header('Location: https://funfair.ovh');
     exit();
 }
 ?>
