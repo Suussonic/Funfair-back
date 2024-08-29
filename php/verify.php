@@ -8,8 +8,8 @@ error_reporting(E_ALL);
 
 include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
 
+// Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
-    // Si l'utilisateur est connecté et que l'ID est défini
     $userId = $_SESSION['id'];
 
     try {
@@ -18,14 +18,23 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Si l'utilisateur n'est pas admin, rediriger vers l'accueil
-        if (!$user || $user['role'] != 'admin') {
-            header('Location: https://funfair.ovh');
-            exit(); // Arrêter le script après la redirection
+        // Débogage : afficher le résultat de la requête
+        if ($user) {
+            echo "Rôle de l'utilisateur : " . $user['role'];
+        } else {
+            echo "Utilisateur non trouvé dans la base de données.";
         }
 
-        // Si l'utilisateur est admin, il peut rester sur la page
-        echo "Bienvenue sur la page d'administration.";
+        // Vérifier le rôle de l'utilisateur
+        if ($user && $user['role'] === 'admin') {
+            // L'utilisateur est admin, afficher le contenu de la page
+            echo "Bienvenue, administrateur!";
+            // Ici, tu peux ajouter le contenu de ta page pour les admins
+        } else {
+            // L'utilisateur n'est pas admin ou non trouvé, rediriger vers l'accueil
+            header('Location: https://funfair.ovh');
+            exit();
+        }
 
     } catch (PDOException $e) {
         // En cas d'erreur SQL, afficher l'erreur
@@ -33,8 +42,8 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     }
 
 } else {
-    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, rediriger vers l'accueil
+    // L'utilisateur n'est pas connecté, rediriger vers l'accueil
     header('Location: https://funfair.ovh');
-    exit(); // Arrêter le script après la redirection
+    exit();
 }
 ?>
