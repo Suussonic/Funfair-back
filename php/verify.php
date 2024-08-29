@@ -28,19 +28,95 @@ function isAdmin($pdo, $userId) {
 if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
 
-    // Vérifier si l'utilisateur est un admin
     if (isAdmin($pdo, $userId)) {
         // L'utilisateur est admin, afficher le contenu de la page
         echo "Bienvenue, administrateur!";
         // Ici, tu peux ajouter le contenu de ta page pour les admins
     } else {
-        // L'utilisateur n'est pas admin, rediriger vers l'accueil
-        header('Location: https://funfair.ovh');
-        exit();
+        // L'utilisateur n'est pas admin, afficher la popup
+        echo '
+        <!DOCTYPE html>
+        <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Accès Refusé</title>
+            <style>
+                .popup {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 1000;
+                }
+                .popup-content {
+                    background: #fff;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                }
+                .popup button {
+                    margin-top: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="popup">
+                <div class="popup-content">
+                    <p>Vous n'avez pas l'autorisation pour accéder à cette page.</p>
+                    <button onclick="window.location.href=\'https://funfair.ovh\'">Retour à l\'accueil</button>
+                </div>
+            </div>
+        </body>
+        </html>';
     }
+
 } else {
-    // L'utilisateur n'est pas connecté, rediriger vers l'accueil
-    header('Location: https://funfair.ovh');
-    exit();
+    // L'utilisateur n'est pas connecté, afficher la popup
+    echo '
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Accès Refusé</title>
+        <style>
+            .popup {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+            }
+            .popup-content {
+                background: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .popup button {
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="popup">
+            <div class="popup-content">
+                <p>Vous devez être connecté pour accéder à cette page.</p>
+                <button onclick="window.location.href=\'https://funfair.ovh\'">Retour à l\'accueil</button>
+            </div>
+        </div>
+    </body>
+    </html>';
 }
 ?>
