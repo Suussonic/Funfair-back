@@ -24,7 +24,7 @@ $stmt = $dbh->query($sql); // Exécuter la requête
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./css/captcha.css">
+    <link rel="stylesheet" type="text/css" href="../css/captcha.css">
     <title>Captcha</title>
 </head>
 <body>
@@ -53,12 +53,12 @@ $stmt = $dbh->query($sql); // Exécuter la requête
 </table>
 </body>
     <div class="buttons-container">
-    <a href="pdfcaptcha" class="action-button">Télécharger PDF</a>
-    <a href="./index.php" class="action-button">Retour au Back</a>
+    <a href="pdfcaptcha.php" class="action-button">Télécharger PDF</a>
+    <a href="../index.php" class="action-button">Retour au Back</a>
 </div>
 
 <div class="back-to-home">
-    <a href="/">Retour à l'accueil</a>
+    <a href="https://funfair.ovh">Retour à l'accueil</a>
 </div>
 
 </body>
