@@ -8,8 +8,6 @@ error_reporting(E_ALL);
 
 include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
 
-
-
 // Fonction pour afficher la popup
 function displayPopup($message) {
     echo '
@@ -85,29 +83,22 @@ function displayPopup($message) {
     </html>';
 }
 
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
-
+// Vérification de la connexion utilisateur
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
-    // Si l'utilisateur est connecté et que l'ID est défini
-    $userId = $_SESSION['id'];  // Utilisez 'id' de manière cohérente
+    $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
 
     try {
         // Préparer une requête pour récupérer le rôle de l'utilisateur
-        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
+        $stmt = $pdo->prepare('SELECT role FROM users WHERE id = :id');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Afficher le bouton "Back" pour tous les utilisateurs connectés
-        displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
-
-        // Si l'utilisateur est admin, afficher un lien supplémentaire pour le panneau d'administration
-        if ($user && $user['role'] == 'admin') {
-            console.log("Tu est bien admin");
+        if ($user && $user['role'] === 'admin') {
+            // Si l'utilisateur est un admin, envoyer un message dans la console
+            echo '<script>console.log("Tu es bien admin");</script>';
+        } else {
+            // Si l'utilisateur n'est pas admin, afficher la popup
+            displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
         }
 
     } catch (PDOException $e) {
@@ -116,8 +107,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     }
 
 } else {
-    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini
-        displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
+    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, afficher la popup
+    displayPopup("Vous devez être connecté pour accéder à cette page.");
 }
 ?>
-
