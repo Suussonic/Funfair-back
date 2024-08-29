@@ -1,53 +1,39 @@
 <?php
 session_start();
 
-// Enable error display for debugging
+// Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once('Database.php'); // Make sure this file initializes a PDO connection named $dbh
+include_once('models/Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
 
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
-    // If the user is logged in and the ID is set
-    $id = $_SESSION['id'];  // Correctly use 'id' variable
+    // Si l'utilisateur est connecté et que l'ID est défini
+    $userId = $_SESSION['id'];  // Utilisez 'id' de manière cohérente
 
     try {
-        // Prepare a query to retrieve the user's role and verification status
-        $stmt = $dbh->prepare('SELECT role, verified FROM users WHERE id = :id');
-        $stmt->execute(['id' => $id]);  // Fixed the incorrect variable name from '$is' to '$id'
+        // Préparer une requête pour récupérer le rôle de l'utilisateur
+        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
+        $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Check if user exists
-        if ($user) {
-            // If the user is not verified, redirect them to the homepage
-            if (!$user['verified']) {
-                header('Location: https://funfair.ovh');
-                exit();
-            }
-            
-            // If the user is admin, allow access
-            if ($user['role'] == 'admin') {
-                // Admin-specific logic or page content can be placed here
-                echo "Welcome, Admin!";
-            } else {
-                // If the user is verified but not an admin, redirect to the homepage
-                header('Location: https://funfair.ovh');
-                exit();
-            }
-        } else {
-            // If user does not exist in the database, redirect to the homepage
-            header('Location: https://funfair.ovh');
-            exit();
+        // Afficher le bouton "Back" pour tous les utilisateurs connectés
+        echo '<a class="cta-button" href="/account">Mon compte</a>';
+        echo '<a class="cta-button" href="/logout">Déconnexion</a>';
+
+        // Si l'utilisateur est admin, afficher un lien supplémentaire pour le panneau d'administration
+        if ($user && $user['role'] == 'admin') {
+            echo '<a class="cta-button" href="https://admin.funfair.ovh/">Admin Panel</a>';
         }
+
     } catch (PDOException $e) {
-        // In case of SQL error, display the error
+        // En cas d'erreur SQL, afficher l'erreur
         echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
     }
 
 } else {
-    // If the user is not logged in or the ID is not set, redirect to the homepage
-    header('Location: https://funfair.ovh');
-    exit();
+    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini
+    echo '<a class="cta-button" href="/login">Se Connecter</a>';
 }
 ?>
