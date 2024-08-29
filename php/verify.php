@@ -99,15 +99,18 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
         } else {
             // Si l'utilisateur n'est pas admin, afficher la popup
             displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
+            exit; // S'assurer que rien d'autre n'est exécuté
         }
 
     } catch (PDOException $e) {
         // En cas d'erreur SQL, afficher l'erreur
         echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
+        exit; // S'assurer que rien d'autre n'est exécuté en cas d'erreur
     }
 
 } else {
     // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, afficher la popup
     displayPopup("Vous devez être connecté pour accéder à cette page.");
+    exit; // S'assurer que rien d'autre n'est exécuté
 }
 ?>
