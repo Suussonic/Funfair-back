@@ -8,21 +8,7 @@ error_reporting(E_ALL);
 
 include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
 
-function isAdmin($pdo, $userId) {
-    try {
-        // Préparer une requête pour récupérer le rôle de l'utilisateur
-        $stmt = $pdo->prepare('SELECT role FROM users WHERE id = :id');
-        $stmt->execute(['id' => $userId]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Vérifier si l'utilisateur est un admin
-        return $user && $user['role'] === 'admin';
-    } catch (PDOException $e) {
-        // En cas d'erreur SQL, afficher l'erreur
-        echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
-        return false;
-    }
-}
 
 // Fonction pour afficher la popup
 function displayPopup($message) {
@@ -99,21 +85,40 @@ function displayPopup($message) {
     </html>';
 }
 
-// Vérifier si l'utilisateur est connecté
-if (isset($_SESSION['id'])) {
-    $userId = $_SESSION['id'];
+session_start();
 
-    if (isAdmin($pdo, $userId)) {
-        // L'utilisateur est admin, afficher le contenu de la page
-        echo "<h1>Bienvenue, administrateur!</h1>";
-        // Ici, tu peux ajouter le contenu de ta page pour les admins
-    } else {
-        // L'utilisateur n'est pas admin, afficher la popup
+// Activer l'affichage des erreurs pour le débogage
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
+
+if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
+    // Si l'utilisateur est connecté et que l'ID est défini
+    $userId = $_SESSION['id'];  // Utilisez 'id' de manière cohérente
+
+    try {
+        // Préparer une requête pour récupérer le rôle de l'utilisateur
+        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
+        $stmt->execute(['id' => $userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Afficher le bouton "Back" pour tous les utilisateurs connectés
         displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
+
+        // Si l'utilisateur est admin, afficher un lien supplémentaire pour le panneau d'administration
+        if ($user && $user['role'] == 'admin') {
+        }
+
+    } catch (PDOException $e) {
+        // En cas d'erreur SQL, afficher l'erreur
+        echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
     }
 
 } else {
-    // L'utilisateur n'est pas connecté, afficher la popup
-    displayPopup("Vous devez être connecté pour accéder à cette page.");
+    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini
+        displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
 }
 ?>
+
