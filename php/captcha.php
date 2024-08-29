@@ -1,6 +1,8 @@
 <?php
-include 'Database.php';
+session_start();
+include 'Database.php'; // Database connection
 
+// Handle delete request
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
     $delete_sql = "DELETE FROM captcha WHERE id = :id";
@@ -12,11 +14,22 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// Définir la requête SQL pour récupérer les données de la table captcha
+// Handle add captcha request
+if (isset($_POST['q']) && isset($_POST['r'])) {
+    $q = $_POST['q'];
+    $r = $_POST['r'];
+    $insert_sql = "INSERT INTO captcha (q, r) VALUES (:q, :r)";
+    $stmt = $dbh->prepare($insert_sql);
+    $stmt->execute([':q' => $q, ':r' => $r]);
+
+    // Redirect to the same page to prevent form resubmission
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// Fetch captchas from database
 $sql = "SELECT id, q, r FROM captcha";
-$stmt = $dbh->query($sql); // Exécuter la requête
-
-
+$stmt = $dbh->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +37,7 @@ $stmt = $dbh->query($sql); // Exécuter la requête
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/captcha.css">
+    <link rel="stylesheet" href="../css/captcha.css">
     <link rel="shortcut icon" href="../asset/logo.png" type="image/x-icon">
     <title>Captcha</title>
 </head>
@@ -38,7 +51,6 @@ $stmt = $dbh->query($sql); // Exécuter la requête
     </tr>
     <?php
     if ($stmt->rowCount() > 0) {
-        // Afficher les données de chaque ligne
         while ($row = $stmt->fetch()) {
             echo "<tr>
                 <td>" . htmlspecialchars($row["id"]) . "</td>
@@ -47,21 +59,35 @@ $stmt = $dbh->query($sql); // Exécuter la requête
             </tr>";
         }
     } else {
-        // Si aucun enregistrement n'est trouvé, afficher un message
-        echo "<tr><td colspan='4'>0 résultats</td></tr>";
+        echo "<tr><td colspan='4' class='no-results'>0 résultats</td></tr>";
     }
     ?>
 </table>
-</body>
 
-    <div class="back-to-home">
-        <a href="https://funfair.ovh">Ajouter un captcha</a>
+<div class="back-to-home">
+    <a href="#" onclick="openPopup()">Ajouter un captcha</a>
+</div>
+
+<div class="buttons-container">
+    <a href="pdfcaptcha.php" class="action-button">Télécharger PDF</a>
+    <a href="../index.php" class="action-button">Retour au Back</a>
+</div>
+
+<!-- Popup Form -->
+<div id="popupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Ajouter un Captcha</h2>
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <label for="q">Question (Q):</label>
+            <input type="text" name="q" required>
+            <label for="r">Réponse (R):</label>
+            <input type="text" name="r" required>
+            <button type="submit" class="action-button">Ajouter</button>
+        </form>
     </div>
+</div>
 
-    <div class="buttons-container">
-        <a href="pdfcaptcha.php" class="action-button">Télécharger PDF</a>
-        <a href="../index.php" class="action-button">Retour au Back</a>
-    </div>
-
+<script src="../js/captcha.js"></script>
 </body>
 </html>
