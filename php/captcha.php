@@ -64,7 +64,7 @@ $stmt = $dbh->query($sql); // Exécuter la requête
 </body>
 
     <div class="back-to-home">
-        <a href="https://funfair.ovh">AJouter un captcha</a>
+        <a href="https://funfair.ovh">Ajouter un captcha</a>
     </div>
 
     <div class="buttons-container">
