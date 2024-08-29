@@ -15,6 +15,7 @@ function displayPopup($message) {
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/verify.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accès Refusé</title>
         <style>
@@ -82,9 +83,6 @@ function displayPopup($message) {
     </body>
     </html>';
 }
-
-// Débogage : vérifier le contenu de la session
-var_dump($_SESSION);
 
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
