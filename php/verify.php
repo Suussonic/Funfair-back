@@ -85,8 +85,6 @@ function displayPopup($message) {
     </html>';
 }
 
-session_start();
-
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
