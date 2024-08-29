@@ -16,11 +16,7 @@ function isAdmin($pdo, $userId) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Vérifier si l'utilisateur est un admin
-        if ($user && $user['role'] === 'admin') {
-            return true;
-        } else {
-            return false;
-        }
+        return $user && $user['role'] === 'admin';
     } catch (PDOException $e) {
         // En cas d'erreur SQL, afficher l'erreur
         echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
@@ -106,9 +102,6 @@ function displayPopup($message) {
 // Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
-
-    // Débogage : afficher l'ID utilisateur
-    // echo "ID utilisateur : " . htmlspecialchars($userId);
 
     if (isAdmin($pdo, $userId)) {
         // L'utilisateur est admin, afficher le contenu de la page
