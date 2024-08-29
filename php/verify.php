@@ -77,6 +77,7 @@ function displayPopup($message) {
                 <h1>Accès Refusé</h1>
                 <p>' . htmlspecialchars($message) . '</p>
                 <button onclick="window.location.href=\'https://funfair.ovh\'">Retour à l\'accueil</button>
+                <a href="php/login.php">Se connecter</a>
             </div>
         </div>
     </body>
