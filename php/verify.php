@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once('models/Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
+include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
 
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     // Si l'utilisateur est connecté et que l'ID est défini
