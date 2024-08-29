@@ -107,6 +107,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
 
         // Si l'utilisateur est admin, afficher un lien supplémentaire pour le panneau d'administration
         if ($user && $user['role'] == 'admin') {
+            console.log("Tu est bien admin");
         }
 
     } catch (PDOException $e) {
