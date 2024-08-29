@@ -10,11 +10,11 @@ include_once('Database.php');
 require('../fpdf186/fpdf.php');
 
 // Retrieve all information from the calculations table
-$sql = "SELECT id, q, r FROM calculations";
+$sql = "SELECT id, q, r FROM captcha";
 
 try {
     $stmt = $dbh->query($sql);
-    $calculations = $stmt->fetchAll();
+    $captcha = $stmt->fetchAll();
 } catch (PDOException $e) {
     die("Error fetching data: " . $e->getMessage());
 }
@@ -25,11 +25,11 @@ class PDF extends FPDF
     function Header()
     {
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(0, 10, 'Calculations Information', 0, 1, 'C');
+        $this->Cell(0, 10, 'captcha Information', 0, 1, 'C');
         $this->Ln(10);
     }
 
-    function CalculationsTable($header, $data)
+    function captchaTable($header, $data)
     {
         // Column widths
         $w = array(10, 50, 30);
@@ -52,7 +52,7 @@ $pdf = new PDF();
 $pdf->AddPage();
 $header = array('ID', 'Q', 'R');
 
-$pdf->CalculationsTable($header, $calculations);
+$pdf->captchaTable($header, $captcha);
 $pdf->Output('D', 'captcha_data.pdf');
 exit;
 ?>
