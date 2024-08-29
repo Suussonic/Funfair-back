@@ -11,32 +11,6 @@ body {
     min-height: 100vh;
 }
 
-.admin-table {
-    width: 100%;
-    max-width: 900px;
-    border-collapse: collapse;
-    background-color: #1e1e1e;
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 20px 0;
-}
-
-.admin-table th, .admin-table td {
-    border: 1px solid #2c2c2c;
-    padding: 12px;
-    text-align: center;
-}
-
-.admin-table th {
-    background-color: #ff6f61;
-    color: #121212;
-}
-
-.admin-table td {
-    background-color: #2c2c2c;
-    color: #f0f0f0;
-}
-
 .action-button {
     background-color: #ff6f61;
     color: #121212;
@@ -124,7 +98,7 @@ body {
 .popup-content label {
     display: block;
     margin-bottom: 8px;
-    color: #f0f0f0;
+    color: #000000;
     text-align: left;
 }
 
