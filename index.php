@@ -17,7 +17,7 @@ include 'php/Database.php';
         <a href="/logs" class="admin-button">logs</a>
         <a href="/logs" class="admin-button">logs</a>
             <a href="/user" class="admin-button">Gestion Utilisateurs</a>
-            <a href="/captcha" class="admin-button">Gestion captcha</a>
+            <a href="/php/captcha.php" class="admin-button">Gestion captcha</a>
             <a href="/captcha" class="admin-button">Gestion avis</a>
             <a href="/captcha" class="admin-button">Gestion reservation</a>
             <a href="/captcha" class="admin-button">Gestion attractions</a>
