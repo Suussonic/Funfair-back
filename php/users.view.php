@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="public/assets/css/users.css">
+    <link rel="stylesheet" type="text/css" href="../css/users.css">
+    <link rel="shortcut icon" href="asset/logo.png" type="image/x-icon">
     <title>Liste des Utilisateurs</title>
 </head>
 <body>

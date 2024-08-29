@@ -1,5 +1,5 @@
 <?php
-include_once('models/Database.php');
+include_once('Database.php');
 
 $errorInfo = false;
 
