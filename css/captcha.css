@@ -43,6 +43,7 @@ body {
     border: none;
     padding: 8px 12px;
     cursor: pointer;
+    margin-top: 50px;
     border-radius: 5px;
     font-weight: bold;
     font-size: 0.9em;
@@ -87,10 +88,6 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
     align-items: center;
     justify-content: center;
-}
-
-.buttons-container {
-    margin-top: 50px;
 }
 
 .popup-content {
