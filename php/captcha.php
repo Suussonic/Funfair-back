@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'Database.php'; // Connexion à la base de données
+include 'Database.php'; 
 
 // Gérer la demande de suppression
 if (isset($_POST['delete_id'])) {
@@ -8,8 +8,6 @@ if (isset($_POST['delete_id'])) {
     $delete_sql = "DELETE FROM captcha WHERE id = :id";
     $stmt = $dbh->prepare($delete_sql);
     $stmt->execute([':id' => $delete_id]);
-
-    // Rediriger vers la même page pour éviter la resoumission du formulaire
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
@@ -21,13 +19,11 @@ if (isset($_POST['add_q']) && isset($_POST['add_r'])) {
     $insert_sql = "INSERT INTO captcha (q, r) VALUES (:q, :r)";
     $stmt = $dbh->prepare($insert_sql);
     $stmt->execute([':q' => $q, ':r' => $r]);
-
-    // Rediriger vers la même page pour éviter la resoumission du formulaire
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
-// Gérer la demande de modification de captcha
+// Géreée la demande de modification de captcha
 if (isset($_POST['edit_id']) && isset($_POST['edit_q']) && isset($_POST['edit_r'])) {
     $edit_id = $_POST['edit_id'];
     $edit_q = $_POST['edit_q'];
@@ -35,8 +31,6 @@ if (isset($_POST['edit_id']) && isset($_POST['edit_q']) && isset($_POST['edit_r'
     $update_sql = "UPDATE captcha SET q = :q, r = :r WHERE id = :id";
     $stmt = $dbh->prepare($update_sql);
     $stmt->execute([':q' => $edit_q, ':r' => $edit_r, ':id' => $edit_id]);
-
-    // Rediriger vers la même page pour éviter la resoumission du formulaire
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
@@ -95,7 +89,7 @@ $stmt = $dbh->query($sql);
     <a href="../index.php" class="action-button">Retour au Back</a>
 </div>
 
-<!-- Formulaire Pop-up pour Ajouter un Captcha -->
+<!-- Formulaires  pour Ajouter un Captcha -->
 <div id="addPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeAddPopup()">&times;</span>
@@ -110,7 +104,7 @@ $stmt = $dbh->query($sql);
     </div>
 </div>
 
-<!-- Formulaire Pop-up pour Modifier un Captcha -->
+<!-- Formulaire pour Modifier un Captcha -->
 <div id="editPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeEditPopup()">&times;</span>
@@ -126,7 +120,7 @@ $stmt = $dbh->query($sql);
     </div>
 </div>
     
-<!-- Formulaire Pop-up pour Ajouter un Captcha -->
+<!-- Formulaire pour Ajouter un Captcha -->
 <div id="addPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeAddPopup()">&times;</span>
@@ -140,8 +134,7 @@ $stmt = $dbh->query($sql);
         </form>
     </div>
 </div>
-
-
+    
 <script src="../js/popup.js"></script>
 </body>
 </html>
