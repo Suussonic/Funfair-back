@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 function insert_logs($action) {
     // Assurez-vous que la session est démarrée
     if (session_status() == PHP_SESSION_NONE) {
