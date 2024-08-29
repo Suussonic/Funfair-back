@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
+include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $dbh
 
 // Fonction pour afficher la popup
 function displayPopup($message) {
@@ -76,7 +76,7 @@ function displayPopup($message) {
         <div class="popup-overlay">
             <div class="popup-content">
                 <h1>Accès Refusé</h1>
-                <p>Vous devez être admin</p>
+                <p>' . htmlspecialchars($message) . '</p>
                 <button onclick="window.location.href=\'https://funfair.ovh\'">Retour à l\'accueil</button>
             </div>
         </div>
