@@ -1,10 +1,13 @@
 <?php
+// Activer l'affichage des erreurs pour le débogage
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$user = 'root';
-$password = 'root';
-$options = [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC];
+// Inclure le fichier de connexion à la base de données
+include __DIR__ . '/Database.php'; // Chemin absolu pour inclure db.php
 
-try {
-    $dbh = new PDO('mysql:host=localhost;dbname=pa', $user, $password, $options);
-} catch (PDOException $e) {
+if (!$dbh) {
+    die("Erreur de connexion : " . var_dump($dbh->errorInfo()));
 }
+?>
