@@ -125,6 +125,22 @@ $stmt = $dbh->query($sql);
         </form>
     </div>
 </div>
+    
+<!-- Formulaire Pop-up pour Ajouter un Captcha -->
+<div id="addPopupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeAddPopup()">&times;</span>
+        <h2>Ajouter un Captcha</h2>
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <label for="add_q">Question (Q):</label>
+            <input type="text" name="add_q" id="add_q" required>
+            <label for="add_r">Réponse (R):</label>
+            <input type="text" name="add_r" id="add_r" required>
+            <button type="submit" class="action-button">Ajouter</button>
+        </form>
+    </div>
+</div>
+
 
 <script src="../js/popup.js"></script>
 </body>
