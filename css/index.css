@@ -1,0 +1,92 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 3em;
+  color: #ff6f61;
+  margin: 0;
+}
+
+header a{
+  background-color: #ffa07a;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 15em;
+}
+
+p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+nav {
+  margin-top: 20px;
+}
+
+nav a {
+  color: #ff6f61;
+  text-decoration: none;
+  font-size: 1.2em;
+  margin: 0 15px;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #ffa07a;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 15px 30px;
+  margin-top: 30px;
+  font-size: 1.2em;
+  background-color: #ff6f61;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #ffa07a;
+}
+
+nav a {
+  margin: 0 15px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #ffa07a;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 30px;
+  background-color: #ff6f61;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2em;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #ffa07a;
+}

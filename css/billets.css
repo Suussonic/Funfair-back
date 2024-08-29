@@ -1,0 +1,93 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #ff6f61;
+  margin-bottom: 20px;
+}
+
+.offers {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.offer-item {
+  background-color: #2c2c2c;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  color: #ffa07a;
+  font-size: 1.1em;
+}
+
+.ticket-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ticket-item {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.ticket-item h2 {
+  color: #ff6f61;
+  margin-bottom: 10px;
+}
+
+.ticket-item p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+.price {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffa07a;
+}
+
+.buy-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 15px;
+  font-size: 1.1em;
+  background-color: #ff6f61;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+  background-color: #ffa07a;
+}
+
+.back-to-home {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.back-to-home a {
+  color: #ff6f61;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: color 0.3s;
+}
+
+.back-to-home a:hover {
+  color: #ffa07a;
+}

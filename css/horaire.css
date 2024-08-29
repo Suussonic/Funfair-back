@@ -1,0 +1,56 @@
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+            margin-bottom: 40px;
+        }
+
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .schedule-item {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .schedule-item h2 {
+            color: #ff6f61;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .schedule-item p {
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-to-home a {
+            color: #ff6f61;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        .back-to-home a:hover {
+            color: #ffa07a;
+        }
