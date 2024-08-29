@@ -1,7 +1,7 @@
 <?php
 
 function insert_logs($action){
-    include('../PHP/Database.php');
+    include('/Database.php');
 
     $login_req = 'SELECT * FROM users WHERE firstname = :firstname';
     $login_query = $dbh->prepare($login_req);
