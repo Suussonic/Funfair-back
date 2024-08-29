@@ -53,14 +53,15 @@ $stmt = $dbh->query($sql); // Exécuter la requête
     ?>
 </table>
 </body>
-    <div class="buttons-container">
-    <a href="pdfcaptcha.php" class="action-button">Télécharger PDF</a>
-    <a href="../index.php" class="action-button">Retour au Back</a>
-</div>
 
-<div class="back-to-home">
-    <a href="https://funfair.ovh">Retour à l'accueil</a>
-</div>
+    <div class="back-to-home">
+        <a href="https://funfair.ovh">AJouter un captcha</a>
+    </div>
+
+    <div class="buttons-container">
+        <a href="pdfcaptcha.php" class="action-button">Télécharger PDF</a>
+        <a href="../index.php" class="action-button">Retour au Back</a>
+    </div>
 
 </body>
 </html>
