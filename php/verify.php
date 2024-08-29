@@ -84,6 +84,8 @@ function displayPopup($message) {
     </html>';
 }
 
+var_dump($_SESSION);
+
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
 
