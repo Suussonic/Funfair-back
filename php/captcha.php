@@ -68,12 +68,9 @@ $stmt = $dbh->query($sql);
             </tr>";
         }
     } else {
-<<<<<<< HEAD
         echo "<tr><td colspan='4' class='no-results'>0 résultats</td></tr>";
-=======
         // Si aucun enregistrement n'est trouvé, afficher un message
         echo "<tr><td colspan='3'>0 résultats</td></tr>";
->>>>>>> 728e5f97f6f4bdacd4bef7ffd31c064544a92ff4
     }
     ?>
 </table>
