@@ -8,8 +8,6 @@ error_reporting(E_ALL);
 
 include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
 
-
-
 // Fonction pour afficher la popup
 function displayPopup($message) {
     echo '
@@ -85,40 +83,39 @@ function displayPopup($message) {
     </html>';
 }
 
-session_start();
-
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
+// Débogage : vérifier le contenu de la session
+var_dump($_SESSION);
 
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
-    // Si l'utilisateur est connecté et que l'ID est défini
-    $userId = $_SESSION['id'];  // Utilisez 'id' de manière cohérente
+    $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
 
     try {
         // Préparer une requête pour récupérer le rôle de l'utilisateur
-        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
+        $stmt = $pdo->prepare('SELECT role FROM users WHERE id = :id');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Afficher le bouton "Back" pour tous les utilisateurs connectés
-        displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
+        // Débogage : vérifier le rôle retourné
+        var_dump($user);
 
-        // Si l'utilisateur est admin, afficher un lien supplémentaire pour le panneau d'administration
-        if ($user && $user['role'] == 'admin') {
+        if ($user && $user['role'] === 'admin') {
+            // Si l'utilisateur est un admin, envoyer un message dans la console
+            echo '<script>console.log("Tu es bien admin");</script>';
+        } else {
+            // Si l'utilisateur n'est pas admin, afficher la popup
+            displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
+            exit; // S'assurer que rien d'autre n'est exécuté
         }
 
     } catch (PDOException $e) {
         // En cas d'erreur SQL, afficher l'erreur
         echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
+        exit; // S'assurer que rien d'autre n'est exécuté en cas d'erreur
     }
 
 } else {
-    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini
-        displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
+    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, afficher la popup
+    displayPopup("Vous devez être connecté pour accéder à cette page.");
+    exit; // S'assurer que rien d'autre n'est exécuté
 }
 ?>
-
