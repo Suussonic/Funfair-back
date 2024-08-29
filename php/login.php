@@ -72,8 +72,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
         <input type="submit" class="btn" value="Se connecter">
 
-        <a href="/register">
-            <div id="btn2">S'inscrire</div>
+        <a href="https://funfair.ovh">
+            <div id="btn2">Accueil</div>
         </a>
     </form>
     <p>Mot de passe oublié ? <u style="color:#f1c40f;">Cliquez ici !</u></p>
