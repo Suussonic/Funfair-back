@@ -1,5 +1,7 @@
 <?php
+global $dbh;
 include_once('Database.php');
+include('logs.php');
 
 $errorInfo = false;
 
