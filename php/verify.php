@@ -91,7 +91,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
 
     try {
         // Préparer une requête pour récupérer le rôle de l'utilisateur
-        $stmt = $pdo->prepare('SELECT role FROM users WHERE id = :id');
+        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

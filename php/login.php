@@ -53,7 +53,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/public/assets/css/loginform.css">
+    <link rel="stylesheet" href="../css/loginform.css">
     <title>Connexion</title>
 </head>
 
@@ -74,7 +74,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
         <input type="submit" class="btn" value="Se connecter">
 
-        <a href="https://funfair.ovh">
+        <a href="https://admin.funfair.ovh">
             <div id="btn2">Accueil</div>
         </a>
     </form>
