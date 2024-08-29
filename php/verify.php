@@ -10,18 +10,22 @@ include_once('Database.php'); // Assurez-vous que ce fichier initialise une conn
 
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     // Si l'utilisateur est connecté et que l'ID est défini
-    $userId = $_SESSION['id'];  // Utilisez 'id' de manière cohérente
+    $userId = $_SESSION['id'];
 
     try {
         // Préparer une requête pour récupérer le rôle de l'utilisateur
-        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
+        $stmt = $pdo->prepare('SELECT role FROM users WHERE id = :id');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Si l'utilisateur est admin, afficher un lien supplémentaire pour le panneau d'administration
-        if ($user && $user['role'] != 'admin') {
+        // Si l'utilisateur n'est pas admin, rediriger vers l'accueil
+        if (!$user || $user['role'] != 'admin') {
             header('Location: https://funfair.ovh');
+            exit(); // Arrêter le script après la redirection
         }
+
+        // Si l'utilisateur est admin, il peut rester sur la page
+        echo "Bienvenue sur la page d'administration.";
 
     } catch (PDOException $e) {
         // En cas d'erreur SQL, afficher l'erreur
@@ -29,7 +33,8 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     }
 
 } else {
-    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini
+    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, rediriger vers l'accueil
     header('Location: https://funfair.ovh');
+    exit(); // Arrêter le script après la redirection
 }
 ?>
