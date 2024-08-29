@@ -53,13 +53,27 @@ $stmt = $dbh->query($sql);
     if ($stmt->rowCount() > 0) {
         while ($row = $stmt->fetch()) {
             echo "<tr>
-                <td>" . htmlspecialchars($row["id"]) . "</td>
+                <td>
+                    " . htmlspecialchars($row["id"]) . "
+                    <!-- Ajouter les boutons Modifier et Supprimer ici -->
+                    <form method='POST' action='edit_captcha.php' style='display:inline; margin-left:10px;'>
+                        <button type='button' class='edit-button'>Modifier</button>
+                    </form>
+                    <form method='POST' action='" . $_SERVER['PHP_SELF'] . "' style='display:inline; margin-left:5px;'>
+                        <button type='button' class='delete-button'>Supprimer</button>
+                    </form>
+                </td>
                 <td>" . htmlspecialchars($row["q"]) . "</td>
                 <td>" . htmlspecialchars($row["r"]) . "</td>
             </tr>";
         }
     } else {
+<<<<<<< HEAD
         echo "<tr><td colspan='4' class='no-results'>0 résultats</td></tr>";
+=======
+        // Si aucun enregistrement n'est trouvé, afficher un message
+        echo "<tr><td colspan='3'>0 résultats</td></tr>";
+>>>>>>> 728e5f97f6f4bdacd4bef7ffd31c064544a92ff4
     }
     ?>
 </table>
