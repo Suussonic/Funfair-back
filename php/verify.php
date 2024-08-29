@@ -8,39 +8,36 @@ error_reporting(E_ALL);
 
 include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
 
-// Vérifier si l'utilisateur est connecté
-if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
-    $userId = $_SESSION['id'];
-
+function isAdmin($pdo, $userId) {
     try {
         // Préparer une requête pour récupérer le rôle de l'utilisateur
         $stmt = $pdo->prepare('SELECT role FROM users WHERE id = :id');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Débogage : afficher le résultat de la requête
-        if ($user) {
-            echo "Rôle de l'utilisateur : " . $user['role'];
-        } else {
-            echo "Utilisateur non trouvé dans la base de données.";
-        }
-
-        // Vérifier le rôle de l'utilisateur
-        if ($user && $user['role'] === 'admin') {
-            // L'utilisateur est admin, afficher le contenu de la page
-            echo "Bienvenue, administrateur!";
-            // Ici, tu peux ajouter le contenu de ta page pour les admins
-        } else {
-            // L'utilisateur n'est pas admin ou non trouvé, rediriger vers l'accueil
-            header('Location: https://funfair.ovh');
-            exit();
-        }
-
+        // Vérifier si l'utilisateur est un admin
+        return $user && $user['role'] === 'admin';
     } catch (PDOException $e) {
         // En cas d'erreur SQL, afficher l'erreur
         echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
+        return false;
     }
+}
 
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['id'])) {
+    $userId = $_SESSION['id'];
+
+    // Vérifier si l'utilisateur est un admin
+    if (isAdmin($pdo, $userId)) {
+        // L'utilisateur est admin, afficher le contenu de la page
+        echo "Bienvenue, administrateur!";
+        // Ici, tu peux ajouter le contenu de ta page pour les admins
+    } else {
+        // L'utilisateur n'est pas admin, rediriger vers l'accueil
+        header('Location: https://funfair.ovh');
+        exit();
+    }
 } else {
     // L'utilisateur n'est pas connecté, rediriger vers l'accueil
     header('Location: https://funfair.ovh');
