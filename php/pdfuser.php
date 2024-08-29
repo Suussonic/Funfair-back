@@ -4,10 +4,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Inclure le fichier de connexion à la base de données
-include_once('db.php');
+include_once('Database.php');
 
 // Inclure la bibliothèque FPDF
-require('../fpdf186/fpdf.php');
+require('./fpdf186/fpdf.php');
 
 // Récupérer toutes les informations des utilisateurs
 $sql = "SELECT id, firstname, lastname, email, gender, roole FROM users";

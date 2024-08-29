@@ -53,8 +53,8 @@ $stmt = $dbh->query($sql); // Exécuter la requête
 </table>
 </body>
     <div class="buttons-container">
-    <a href="/" class="action-button">Télécharger PDF</a>
-    <a href="/back" class="action-button">Retour au Back</a>
+    <a href="pdfcaptcha" class="action-button">Télécharger PDF</a>
+    <a href="./index.php" class="action-button">Retour au Back</a>
 </div>
 
 <div class="back-to-home">
