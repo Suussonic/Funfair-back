@@ -83,7 +83,9 @@ function displayPopup($message) {
     </html>';
 }
 
-// Vérification de la connexion utilisateur
+// Débogage : vérifier le contenu de la session
+var_dump($_SESSION);
+
 if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
 
@@ -92,6 +94,9 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
         $stmt = $pdo->prepare('SELECT role FROM users WHERE id = :id');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Débogage : vérifier le rôle retourné
+        var_dump($user);
 
         if ($user && $user['role'] === 'admin') {
             // Si l'utilisateur est un admin, envoyer un message dans la console
