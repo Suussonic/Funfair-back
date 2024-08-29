@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 include_once('Database.php');
 
 // Inclure la bibliothèque FPDF
-require('./fpdf186/fpdf.php');
+require('../fpdf186/fpdf.php');
 
 // Récupérer toutes les informations des utilisateurs
 $sql = "SELECT id, firstname, lastname, email, gender, roole FROM users";

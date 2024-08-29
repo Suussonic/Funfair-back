@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 include_once('Database.php');
 
 // Include the FPDF library
-require('./fpdf186/fpdf.php');
+require('../fpdf186/fpdf.php');
 
 // Retrieve all information from the calculations table
 $sql = "SELECT id, q, r FROM calculations";
