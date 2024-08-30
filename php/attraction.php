@@ -55,7 +55,7 @@ $stmt = $dbh->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/attraction.css">
+    <link rel="stylesheet" href="../css/captcha.css">
     <link rel="shortcut icon" href="../asset/logo.png" type="image/x-icon">
     <title>Gestion des Attractions</title>
 </head>
