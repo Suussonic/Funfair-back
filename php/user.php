@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'Database.php'; 
+include_once('Database.php');
 
 // Gérer la demande de suppression
 if (isset($_POST['delete_id'])) {
