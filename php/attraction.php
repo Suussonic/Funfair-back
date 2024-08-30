@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('Database.php'); // Ensure this file correctly establishes the $conn variable
+require('database.php'); // This ensures you have access to the $dbh variable for your PDO connection
 
 // Ajouter une nouvelle attraction
 if (isset($_POST['ajouter'])) {
@@ -11,12 +11,10 @@ if (isset($_POST['ajouter'])) {
     $taillemin = $_POST['ajouter_taillemin'];
     $idstripe = $_POST['ajouter_idstripe'];
 
-    // Use prepared statement to avoid SQL injection
     $requete = "INSERT INTO attraction (nom, type, prix, agemin, taillemin, idstripe) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($requete);
-    $stmt->bind_param("ssiiis", $nom, $type, $prix, $agemin, $taillemin, $idstripe);
-    $stmt->execute();
-    $stmt->close();
+    $stmt = $dbh->prepare($requete);
+    $stmt->execute([$nom, $type, $prix, $agemin, $taillemin, $idstripe]);
+
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -31,12 +29,10 @@ if (isset($_POST['modifier'])) {
     $taillemin = $_POST['modifier_taillemin'];
     $idstripe = $_POST['modifier_idstripe'];
 
-    // Use prepared statement to avoid SQL injection
     $requete = "UPDATE attraction SET nom=?, type=?, prix=?, agemin=?, taillemin=?, idstripe=? WHERE id=?";
-    $stmt = $conn->prepare($requete);
-    $stmt->bind_param("ssiiisi", $nom, $type, $prix, $agemin, $taillemin, $idstripe, $id);
-    $stmt->execute();
-    $stmt->close();
+    $stmt = $dbh->prepare($requete);
+    $stmt->execute([$nom, $type, $prix, $agemin, $taillemin, $idstripe, $id]);
+
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -45,19 +41,18 @@ if (isset($_POST['modifier'])) {
 if (isset($_POST['supprimer'])) {
     $id = $_POST['supprimer_id'];
 
-    // Use prepared statement to avoid SQL injection
     $requete = "DELETE FROM attraction WHERE id=?";
-    $stmt = $conn->prepare($requete);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
+    $stmt = $dbh->prepare($requete);
+    $stmt->execute([$id]);
+
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
 // Récupérer toutes les attractions
 $requete = "SELECT * FROM attraction";
-$resultat = $conn->query($requete);
+$stmt = $dbh->query($requete);
+$resultat = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +90,7 @@ $resultat = $conn->query($requete);
         <th>Actions</th>
     </tr>
 
-    <?php while ($row = $resultat->fetch_assoc()): ?>
+    <?php foreach ($resultat as $row): ?>
         <tr>
             <td><?php echo htmlspecialchars($row['id']); ?></td>
             <td><?php echo htmlspecialchars($row['nom']); ?></td>
@@ -124,7 +119,7 @@ $resultat = $conn->query($requete);
                 </form>
             </td>
         </tr>
-    <?php endwhile; ?>
+    <?php endforeach; ?>
 </table>
 
 </body>
