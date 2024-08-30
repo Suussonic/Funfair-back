@@ -2,7 +2,7 @@
 session_start();
 include 'Database.php'; 
 // Requête SQL pour récupérer les réservations
-$sql = "SELECT id, nom, ""type"", prix, agemin, taillemin, idstripe FROM reservation";
+$sql = "SELECT id, nom, prix, agemin, taillemin, idstripe FROM reservation";
 $stmt = $dbh->query($sql);
 ?>
 
@@ -33,7 +33,6 @@ $stmt = $dbh->query($sql);
             echo "<tr>
                 <td>" . htmlspecialchars($row['id']) . "</td>
                 <td>" . htmlspecialchars($row['nom']) . "</td>
-                <td>" . htmlspecialchars($row['type']) . "</td>
                 <td>" . htmlspecialchars($row['prix']) . "</td>
                 <td>" . htmlspecialchars($row['agemin']) . "</td>
                 <td>" . htmlspecialchars($row['taillemin']) . "</td>
