@@ -21,7 +21,7 @@ include 'php/Database.php';
             <a href="/php/captcha.php" class="admin-button">Gestion captcha</a>
             <a href="/captcha" class="admin-button">Gestion avis</a>
             <a href="/php/reservation.php" class="admin-button">Gestion reservation</a>
-            <a href="/captcha" class="admin-button">Gestion attractions</a>
+            <a href="/php/attraction.php" class="admin-button">Gestion attractions</a>
             <a href="/captcha" class="admin-button">Newsletter</a>
             <a href="gestion-horaires.html" class="admin-button">Gestion Horaires</a>
             <a href="parametres.html" class="admin-button">Paramètres</a>
