@@ -2,7 +2,7 @@
 session_start();
 include 'Database.php'; 
 // Requête SQL pour récupérer les réservations
-$sql = "SELECT id, nom, type, prix, agemin, taillemin, idstripe FROM reservations";
+$sql = "SELECT id, nom, prix, agemin, taillemin, idstripe FROM reservations";
 $stmt = $dbh->query($sql);
 ?>
 
@@ -21,7 +21,6 @@ $stmt = $dbh->query($sql);
     <tr>
         <th>ID</th>
         <th>Nom</th>
-        <th>Type</th>
         <th>Prix</th>
         <th>Âge Minimum</th>
         <th>Taille Minimum</th>
@@ -33,7 +32,6 @@ $stmt = $dbh->query($sql);
             echo "<tr>
                 <td>" . htmlspecialchars($row['id']) . "</td>
                 <td>" . htmlspecialchars($row['nom']) . "</td>
-                <td>" . htmlspecialchars($row['type']) . "</td>
                 <td>" . htmlspecialchars($row['prix']) . "</td>
                 <td>" . htmlspecialchars($row['agemin']) . "</td>
                 <td>" . htmlspecialchars($row['taillemin']) . "</td>
@@ -41,7 +39,7 @@ $stmt = $dbh->query($sql);
             </tr>";
         }
     } else {
-        echo "<tr><td colspan='7' class='no-results'>0 résultats</td></tr>";
+        echo "<tr><td colspan='6' class='no-results'>0 résultats</td></tr>";
     }
     ?>
 </table>
