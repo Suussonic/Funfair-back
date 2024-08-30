@@ -2,13 +2,6 @@
 session_start();
 include 'Database.php'; 
 
-<<<<<<< HEAD
-<?php
-session_start();
-include 'Database.php'; 
-
-=======
->>>>>>> c29d3fe871f370c6643a21541108def68e673e4b
 // Gérer la demande de suppression
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
@@ -18,7 +11,6 @@ if (isset($_POST['delete_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-<<<<<<< HEAD
 
 // Gérer la demande d'ajout de captcha
 if (isset($_POST['add_q']) && isset($_POST['add_r'])) {
