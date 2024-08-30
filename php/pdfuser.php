@@ -45,7 +45,7 @@ class PDF extends FPDF
             $this->Cell($w[2], 6, $row['lastname'], 1);
             $this->Cell($w[3], 6, $row['email'], 1);
             $this->Cell($w[4], 6, $row['gender'], 1);
-            $this->Cell($w[5], 6, $row['roole'], 1);
+            $this->Cell($w[5], 6, $row['role'], 1);
             $this->Ln();
         }
     }
