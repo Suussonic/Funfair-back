@@ -138,5 +138,3 @@ $stmt = $dbh->query($sql);
 <script src="../js/popup.js"></script>
 </body>
 </html>
-=======
->>>>>>> c29d3fe871f370c6643a21541108def68e673e4b
