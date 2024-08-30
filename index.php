@@ -1,6 +1,6 @@
 <?php
 include 'php/Database.php';
-include 'php/verify.php';
+// include 'php/verify.php';
 ?>
 
 <!DOCTYPE html>

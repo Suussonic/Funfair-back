@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $pdo
+include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $dbh
 
 // Fonction pour afficher la popup
 function displayPopup($message) {
@@ -15,7 +15,7 @@ function displayPopup($message) {
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/verify.css">
+        <link rel="stylesheet" href="../css/verify.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accès Refusé</title>
         <style>
@@ -76,7 +76,7 @@ function displayPopup($message) {
         <div class="popup-overlay">
             <div class="popup-content">
                 <h1>Accès Refusé</h1>
-                <p>Vous devez être admin</p>
+                <p>' . htmlspecialchars($message) . '</p>
                 <button onclick="window.location.href=\'https://funfair.ovh\'">Retour à l\'accueil</button>
             </div>
         </div>
@@ -84,36 +84,47 @@ function displayPopup($message) {
     </html>';
 }
 
-if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
-    $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
+// Vérification des données de session
+var_dump($_SESSION);  // Affiche les données de session pour déboguer
+
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['id'])) {
+    $userId = $_SESSION['id'];
+    
+    // Débogage : afficher l'ID utilisateur
+    var_dump($userId);
 
     try {
         // Préparer une requête pour récupérer le rôle de l'utilisateur
-        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
+        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id LIMIT 1');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Débogage : vérifier le rôle retourné
+        // Débogage : Vérifier les informations de l'utilisateur
         var_dump($user);
 
-        if ($user && $user['role'] === 'admin') {
-            // Si l'utilisateur est un admin, envoyer un message dans la console
-            echo '<script>console.log("Tu es bien admin");</script>';
-        } else {
-            // Si l'utilisateur n'est pas admin, afficher la popup
+        if (!$user) {
+            displayPopup("Utilisateur non trouvé.");
+            exit;
+        }
+
+        // Débogage : Vérifier le rôle de l'utilisateur
+        var_dump($user['role']);
+
+        if ($user['role'] !== 'admin') {
             displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
-            exit; // S'assurer que rien d'autre n'est exécuté
+            exit;
+        } else {
+            // Débogage : Confirmer que l'utilisateur est admin
+            echo '<script>console.log("Utilisateur admin confirmé.");</script>';
         }
 
     } catch (PDOException $e) {
-        // En cas d'erreur SQL, afficher l'erreur
-        echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
-        exit; // S'assurer que rien d'autre n'est exécuté en cas d'erreur
+        displayPopup("Erreur lors de la requête SQL : " . $e->getMessage());
+        exit;
     }
-
 } else {
-    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, afficher la popup
     displayPopup("Vous devez être connecté pour accéder à cette page.");
-    exit; // S'assurer que rien d'autre n'est exécuté
+    exit;
 }
 ?>
