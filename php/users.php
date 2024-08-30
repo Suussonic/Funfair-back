@@ -2,7 +2,7 @@
 session_start();
 include 'Database.php'; 
 
-// Handle delete request
+
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
     $delete_sql = "DELETE FROM users WHERE id = :id";
@@ -12,7 +12,7 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// Handle add user request
+
 if (isset($_POST['add_name']) && isset($_POST['add_email'])) {
     $name = $_POST['add_name'];
     $email = $_POST['add_email'];
@@ -23,7 +23,7 @@ if (isset($_POST['add_name']) && isset($_POST['add_email'])) {
     exit;
 }
 
-// Handle edit user request
+
 if (isset($_POST['edit_id']) && isset($_POST['edit_name']) && isset($_POST['edit_email'])) {
     $edit_id = $_POST['edit_id'];
     $edit_name = $_POST['edit_name'];
@@ -35,7 +35,7 @@ if (isset($_POST['edit_id']) && isset($_POST['edit_name']) && isset($_POST['edit
     exit;
 }
 
-// Fetch users from the database
+
 $sql = "SELECT id, name, email FROM users";
 $stmt = $dbh->query($sql);
 ?>
@@ -89,7 +89,6 @@ $stmt = $dbh->query($sql);
     <a href="../index.php" class="action-button">Back</a>
 </div>
 
-<!-- Form for adding a user -->
 <div id="addPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeAddPopup()">&times;</span>
