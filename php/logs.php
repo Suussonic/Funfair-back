@@ -1,5 +1,5 @@
 <?php
-include_once('Database.php');
+include('Database.php');
 
 function insert_logs($action) {
     // Assurez-vous que la session est démarrée
