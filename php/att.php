@@ -40,7 +40,7 @@ $stmt = $dbh->query($sql);
             </tr>";
         }
     } else {
-        echo "<tr><td colspan='7' class='no-results'>0 résultats</td></tr>";
+        echo "<tr><td colspan='6' class='no-results'>0 résultats</td></tr>";
     }
     ?>
 </table>
