@@ -85,7 +85,7 @@ function displayPopup($message) {
 }
 
 // Vérification des données de session
-var_dump($_SESSION);
+var_dump($_SESSION);  // Affiche les données de session pour déboguer
 
 // Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['id'])) {
