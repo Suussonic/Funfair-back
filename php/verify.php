@@ -87,8 +87,10 @@ function displayPopup($message) {
     </html>';
 }
 
-// Afficher les données de la session pour déboguer
-var_dump($_SESSION);
+// Débogage : Afficher toutes les données de la session
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
 
 if (isset($_SESSION['id'])) {  // Vérification de l'existence de l'ID utilisateur dans la session
     $userId = $_SESSION['id'];
@@ -100,7 +102,9 @@ if (isset($_SESSION['id'])) {  // Vérification de l'existence de l'ID utilisate
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Afficher les informations de l'utilisateur pour déboguer
-        var_dump($user);
+        echo '<pre>';
+        print_r($user);
+        echo '</pre>';
 
         // Vérification du rôle de l'utilisateur
         if ($user && $user['role'] === 'admin') {
