@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Augmenter la limite de mémoire si nécessaire (au cas où)
+// Augmenter la limite de mémoire si nécessaire
 ini_set('memory_limit', '256M');
 
 // Activer l'affichage des erreurs pour le débogage
@@ -87,39 +87,40 @@ function displayPopup($message) {
     </html>';
 }
 
-// Débogage : afficher la session
+// Afficher les données de la session pour déboguer
 var_dump($_SESSION);
 
-if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
-    $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
+if (isset($_SESSION['id'])) {  // Vérification de l'existence de l'ID utilisateur dans la session
+    $userId = $_SESSION['id'];
 
     try {
-        // Préparer une requête pour récupérer le rôle de l'utilisateur
+        // Préparer la requête pour récupérer le rôle de l'utilisateur
         $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id LIMIT 1');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Débogage : vérifier le rôle retourné
+        // Afficher les informations de l'utilisateur pour déboguer
         var_dump($user);
 
+        // Vérification du rôle de l'utilisateur
         if ($user && $user['role'] === 'admin') {
-            // Si l'utilisateur est un admin, envoyer un message dans la console
             echo '<script>console.log("Tu es bien admin");</script>';
+            // Vous pouvez rediriger ou continuer ici si nécessaire
         } else {
             // Si l'utilisateur n'est pas admin, afficher la popup
             displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
-            exit; // S'assurer que rien d'autre n'est exécuté
+            exit;
         }
 
     } catch (PDOException $e) {
         // En cas d'erreur SQL, afficher l'erreur
         echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
-        exit; // S'assurer que rien d'autre n'est exécuté en cas d'erreur
+        exit;
     }
 
 } else {
-    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, afficher la popup
+    // Si l'utilisateur n'est pas connecté, afficher la popup
     displayPopup("Vous devez être connecté pour accéder à cette page.");
-    exit; // S'assurer que rien d'autre n'est exécuté
+    exit;
 }
 ?>
