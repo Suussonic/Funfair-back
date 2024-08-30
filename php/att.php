@@ -11,7 +11,8 @@ if (isset($_POST['delete_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-
+?>
+    
 <!DOCTYPE html>
 <html lang="fr">
 <head>
