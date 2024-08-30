@@ -2,7 +2,7 @@
 session_start();
 include 'Database.php'; 
 // Requête SQL pour récupérer les réservations
-$sql = "SELECT id, nom, type, prix, agemin, taillemin, idstripe FROM reservation";
+$sql = "SELECT id, nom, type, prix, agemin, taillemin, idstripe FROM reservations";
 $stmt = $dbh->query($sql);
 ?>
 
