@@ -37,15 +37,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $_SESSION['lastname'] = $user['lastname'];
         $_SESSION['user'] = $user;
 
-        //insert_logs('connexion');
-        insert_logs('connexion');
         header('location:/'); // Rediriger vers la page d'accueil
         exit;
     } else {
         $errorInfo = true;
     }
 }
-
+//insert_logs('connexion');
+insert_logs('connexion');
 
 ?>
 <!DOCTYPE html>
