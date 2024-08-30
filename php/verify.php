@@ -84,9 +84,15 @@ function displayPopup($message) {
     </html>';
 }
 
+// Vérification des données de session
+var_dump($_SESSION);
+
 // Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
+    
+    // Débogage : afficher l'ID utilisateur
+    var_dump($userId);
 
     try {
         // Préparer une requête pour récupérer le rôle de l'utilisateur
@@ -95,15 +101,22 @@ if (isset($_SESSION['id'])) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Débogage : Vérifier les informations de l'utilisateur
+        var_dump($user);
+
         if (!$user) {
             displayPopup("Utilisateur non trouvé.");
             exit;
         }
 
-        // Débogage : Afficher le rôle pour vérifier qu'il est bien 'admin'
+        // Débogage : Vérifier le rôle de l'utilisateur
+        var_dump($user['role']);
+
         if ($user['role'] !== 'admin') {
             displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
             exit;
+        } else {
+            // Débogage : Confirmer que l'utilisateur est admin
+            echo '<script>console.log("Utilisateur admin confirmé.");</script>';
         }
 
     } catch (PDOException $e) {
