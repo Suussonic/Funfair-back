@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-// Augmenter la limite de mémoire si nécessaire
-ini_set('memory_limit', '256M');
-
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -18,7 +15,7 @@ function displayPopup($message) {
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/verify.css">
+        <link rel="stylesheet" href="../css/verify.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accès Refusé</title>
         <style>
@@ -87,43 +84,33 @@ function displayPopup($message) {
     </html>';
 }
 
-// Débogage : Afficher toutes les données de la session
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-
-if (isset($_SESSION['id'])) {  // Vérification de l'existence de l'ID utilisateur dans la session
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
 
     try {
-        // Préparer la requête pour récupérer le rôle de l'utilisateur
+        // Préparer une requête pour récupérer le rôle de l'utilisateur
         $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id LIMIT 1');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Afficher les informations de l'utilisateur pour déboguer
-        echo '<pre>';
-        print_r($user);
-        echo '</pre>';
+        // Débogage : Vérifier les informations de l'utilisateur
+        if (!$user) {
+            displayPopup("Utilisateur non trouvé.");
+            exit;
+        }
 
-        // Vérification du rôle de l'utilisateur
-        if ($user && $user['role'] === 'admin') {
-            echo '<script>console.log("Tu es bien admin");</script>';
-            // Vous pouvez rediriger ou continuer ici si nécessaire
-        } else {
-            // Si l'utilisateur n'est pas admin, afficher la popup
+        // Débogage : Afficher le rôle pour vérifier qu'il est bien 'admin'
+        if ($user['role'] !== 'admin') {
             displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
             exit;
         }
 
     } catch (PDOException $e) {
-        // En cas d'erreur SQL, afficher l'erreur
-        echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
+        displayPopup("Erreur lors de la requête SQL : " . $e->getMessage());
         exit;
     }
-
 } else {
-    // Si l'utilisateur n'est pas connecté, afficher la popup
     displayPopup("Vous devez être connecté pour accéder à cette page.");
     exit;
 }
