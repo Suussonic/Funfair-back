@@ -58,5 +58,35 @@ if (isset($_POST['delete_id'])) {
     <a href="../index.php" class="action-button">Retour au Back</a>
 </div>
 
+<div id="addPopupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeAddPopup()">&times;</span>
+        <h2>Ajouter un Captcha</h2>
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <label for="add_q">Question (Q):</label>
+            <input type="text" name="add_q" required>
+            <label for="add_r">Réponse (R):</label>
+            <input type="text" name="add_r" required>
+            <button type="submit" class="action-button">Ajouter</button>
+        </form>
+    </div>
+</div>
+
+
+<div id="editPopupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeEditPopup()">&times;</span>
+        <h2>Modifier un Captcha</h2>
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <input type="hidden" name="edit_id" id="edit_id">
+            <label for="edit_q">Question (Q):</label>
+            <input type="text" name="edit_q" id="edit_q" required>
+            <label for="edit_r">Réponse (R):</label>
+            <input type="text" name="edit_r" id="edit_r" required>
+            <button type="submit" class="action-button">Modifier</button>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
