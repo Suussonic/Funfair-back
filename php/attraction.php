@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('Database.php');
+require('Database.php'); // Ensure this file correctly establishes the $conn variable
 
 // Ajouter une nouvelle attraction
 if (isset($_POST['ajouter'])) {
@@ -11,12 +11,13 @@ if (isset($_POST['ajouter'])) {
     $taillemin = $_POST['ajouter_taillemin'];
     $idstripe = $_POST['ajouter_idstripe'];
 
+    // Use prepared statement to avoid SQL injection
     $requete = "INSERT INTO attraction (nom, type, prix, agemin, taillemin, idstripe) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($requete);
     $stmt->bind_param("ssiiis", $nom, $type, $prix, $agemin, $taillemin, $idstripe);
     $stmt->execute();
     $stmt->close();
-    header("Location: attractions.php");
+    header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
@@ -30,12 +31,13 @@ if (isset($_POST['modifier'])) {
     $taillemin = $_POST['modifier_taillemin'];
     $idstripe = $_POST['modifier_idstripe'];
 
+    // Use prepared statement to avoid SQL injection
     $requete = "UPDATE attraction SET nom=?, type=?, prix=?, agemin=?, taillemin=?, idstripe=? WHERE id=?";
     $stmt = $conn->prepare($requete);
     $stmt->bind_param("ssiiisi", $nom, $type, $prix, $agemin, $taillemin, $idstripe, $id);
     $stmt->execute();
     $stmt->close();
-    header("Location: attractions.php");
+    header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
@@ -43,12 +45,13 @@ if (isset($_POST['modifier'])) {
 if (isset($_POST['supprimer'])) {
     $id = $_POST['supprimer_id'];
 
+    // Use prepared statement to avoid SQL injection
     $requete = "DELETE FROM attraction WHERE id=?";
     $stmt = $conn->prepare($requete);
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
-    header("Location: attractions.php");
+    header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
@@ -94,25 +97,27 @@ $resultat = $conn->query($requete);
 
     <?php while ($row = $resultat->fetch_assoc()): ?>
         <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['nom']; ?></td>
-            <td><?php echo $row['type']; ?></td>
-            <td><?php echo $row['prix']; ?></td>
-            <td><?php echo $row['agemin']; ?></td>
-            <td><?php echo $row['taillemin']; ?></td>
-            <td><?php echo $row['idstripe']; ?></td>
+            <td><?php echo htmlspecialchars($row['id']); ?></td>
+            <td><?php echo htmlspecialchars($row['nom']); ?></td>
+            <td><?php echo htmlspecialchars($row['type']); ?></td>
+            <td><?php echo htmlspecialchars($row['prix']); ?></td>
+            <td><?php echo htmlspecialchars($row['agemin']); ?></td>
+            <td><?php echo htmlspecialchars($row['taillemin']); ?></td>
+            <td><?php echo htmlspecialchars($row['idstripe']); ?></td>
             <td>
+                <!-- Form for modifying an attraction -->
                 <form method="post" action="" style="display:inline;">
                     <input type="hidden" name="modifier_id" value="<?php echo $row['id']; ?>">
-                    <input type="text" name="modifier_nom" value="<?php echo $row['nom']; ?>" required>
-                    <input type="text" name="modifier_type" value="<?php echo $row['type']; ?>" required>
-                    <input type="number" name="modifier_prix" value="<?php echo $row['prix']; ?>" required>
-                    <input type="number" name="modifier_agemin" value="<?php echo $row['agemin']; ?>" required>
-                    <input type="number" name="modifier_taillemin" value="<?php echo $row['taillemin']; ?>" required>
-                    <input type="text" name="modifier_idstripe" value="<?php echo $row['idstripe']; ?>" required>
+                    <input type="text" name="modifier_nom" value="<?php echo htmlspecialchars($row['nom']); ?>" required>
+                    <input type="text" name="modifier_type" value="<?php echo htmlspecialchars($row['type']); ?>" required>
+                    <input type="number" name="modifier_prix" value="<?php echo htmlspecialchars($row['prix']); ?>" required>
+                    <input type="number" name="modifier_agemin" value="<?php echo htmlspecialchars($row['agemin']); ?>" required>
+                    <input type="number" name="modifier_taillemin" value="<?php echo htmlspecialchars($row['taillemin']); ?>" required>
+                    <input type="text" name="modifier_idstripe" value="<?php echo htmlspecialchars($row['idstripe']); ?>" required>
                     <button type="submit" name="modifier">Modifier</button>
                 </form>
 
+                <!-- Form for deleting an attraction -->
                 <form method="post" action="" style="display:inline;">
                     <input type="hidden" name="supprimer_id" value="<?php echo $row['id']; ?>">
                     <button type="submit" name="supprimer">Supprimer</button>
