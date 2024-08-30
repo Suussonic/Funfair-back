@@ -10,4 +10,6 @@ include __DIR__ . '/Database.php'; // Chemin absolu pour inclure db.php
 if (!$dbh) {
     die("Erreur de connexion : " . var_dump($dbh->errorInfo()));
 }
+
+ini_set('memory_limit', '256M');
 ?>
