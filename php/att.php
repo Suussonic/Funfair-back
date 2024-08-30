@@ -11,7 +11,7 @@ $stmt = $dbh->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/reservation.css">
+    <link rel="stylesheet" href="../css/captcha.css">
     <link rel="shortcut icon" href="../asset/logo.png" type="image/x-icon">
     <title>Affichage des Réservations</title>
 </head>
