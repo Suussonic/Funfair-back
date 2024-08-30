@@ -1,21 +1,15 @@
 <?php
 session_start();
 
+// Augmenter la limite de mémoire si nécessaire (au cas où)
+ini_set('memory_limit', '256M');
+
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Augmenter temporairement la limite de mémoire (optionnel)
-ini_set('memory_limit', '256M');
-
-// Inclure le fichier de connexion à la base de données
-require_once 'Database.php'; // Assurez-vous que ce fichier initialise une connexion PDO nommée $dbh
-
-// Vérifier si la connexion PDO est établie
-if (!$dbh) {
-    die('Erreur : Impossible de se connecter à la base de données.');
-}
+include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $dbh
 
 // Fonction pour afficher la popup
 function displayPopup($message) {
@@ -24,10 +18,14 @@ function displayPopup($message) {
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/verify.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accès Refusé</title>
         <style>
-            body { margin: 0; font-family: Arial, sans-serif; background-color: #f2f2f2; }
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
             .popup-overlay {
                 display: flex;
                 justify-content: center;
@@ -39,35 +37,40 @@ function displayPopup($message) {
                 height: 100%;
                 background: rgba(0, 0, 0, 0.5);
                 z-index: 1000;
+                overflow: hidden;
             }
             .popup-content {
                 background: #fff;
-                padding: 30px;
+                padding: 20px;
                 border-radius: 8px;
                 text-align: center;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                width: 90%;
+                max-width: 400px;
             }
-            .popup-content h1 {
-                margin-bottom: 20px;
-                font-size: 24px;
+            .popup h1 {
+                margin-top: 0;
+                font-size: 18px;
                 color: #333;
             }
-            .popup-content p {
-                font-size: 16px;
+            .popup p {
                 color: #666;
-                margin-bottom: 30px;
+                margin: 10px 0;
             }
-            .popup-content button {
+            .popup button {
                 background-color: #007bff;
                 border: none;
                 color: white;
                 padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
                 font-size: 16px;
+                margin-top: 20px;
                 cursor: pointer;
                 border-radius: 5px;
                 transition: background-color 0.3s;
             }
-            .popup-content button:hover {
+            .popup button:hover {
                 background-color: #0056b3;
             }
         </style>
@@ -76,41 +79,47 @@ function displayPopup($message) {
         <div class="popup-overlay">
             <div class="popup-content">
                 <h1>Accès Refusé</h1>
-                <p>' . htmlspecialchars($message, ENT_QUOTES, 'UTF-8') . '</p>
+                <p>' . htmlspecialchars($message) . '</p>
                 <button onclick="window.location.href=\'https://funfair.ovh\'">Retour à l\'accueil</button>
             </div>
         </div>
     </body>
     </html>';
-    exit;
 }
 
-// Vérifier si l'utilisateur est connecté
-if (isset($_SESSION['id'])) {
-    $userId = $_SESSION['id'];
+// Débogage : afficher la session
+var_dump($_SESSION);
+
+if (isset($_SESSION['firstname']) && isset($_SESSION['id'])) {
+    $userId = $_SESSION['id'];  // Utiliser 'id' pour récupérer l'identifiant utilisateur
 
     try {
-        // Préparer et exécuter la requête pour récupérer le rôle de l'utilisateur
-        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id');
-        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
-        $stmt->execute();
+        // Préparer une requête pour récupérer le rôle de l'utilisateur
+        $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id LIMIT 1');
+        $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Débogage : vérifier le rôle retourné
+        var_dump($user);
+
         if ($user && $user['role'] === 'admin') {
-            // L'utilisateur est admin
-            echo '<script>console.log("Vous êtes connecté en tant qu\'administrateur.");</script>';
-            // Placez ici le code réservé aux administrateurs
+            // Si l'utilisateur est un admin, envoyer un message dans la console
+            echo '<script>console.log("Tu es bien admin");</script>';
         } else {
-            // L'utilisateur n'est pas admin
+            // Si l'utilisateur n'est pas admin, afficher la popup
             displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
+            exit; // S'assurer que rien d'autre n'est exécuté
         }
+
     } catch (PDOException $e) {
-        // Gérer les erreurs de la base de données
-        error_log('Erreur lors de la requête SQL : ' . $e->getMessage());
-        displayPopup("Une erreur interne est survenue. Veuillez réessayer plus tard.");
+        // En cas d'erreur SQL, afficher l'erreur
+        echo 'Erreur lors de la requête SQL : ' . $e->getMessage();
+        exit; // S'assurer que rien d'autre n'est exécuté en cas d'erreur
     }
+
 } else {
-    // L'utilisateur n'est pas connecté
+    // Si l'utilisateur n'est pas connecté ou si l'ID n'est pas défini, afficher la popup
     displayPopup("Vous devez être connecté pour accéder à cette page.");
+    exit; // S'assurer que rien d'autre n'est exécuté
 }
 ?>
