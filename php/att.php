@@ -1,10 +1,16 @@
 <?php
 session_start();
 include 'Database.php'; 
-// Requête SQL pour récupérer les réservations
-$sql = "SELECT id, nom, type, prix, agemin, taillemin, idstripe FROM reservations";
-$stmt = $dbh->query($sql);
-?>
+
+// Gérer la demande de suppression
+if (isset($_POST['delete_id'])) {
+    $delete_id = $_POST['delete_id'];
+    $delete_sql = "DELETE FROM captcha WHERE id = :id";
+    $stmt = $dbh->prepare($delete_sql);
+    $stmt->execute([':id' => $delete_id]);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 
 <!DOCTYPE html>
 <html lang="fr">
