@@ -1,11 +1,22 @@
 <?php
 session_start();
-include 'Database.php'; 
+include 'Database.php';
 // Requête SQL pour récupérer les réservations
 $sql = "SELECT id, nom, type, prix, agemin, taillemin, idstripe FROM attractions";
 $stmt = $dbh->query($sql);
 ?>
 
+// Gérer la demande de suppression
+if (isset($_POST['delete_id'])) {
+    $delete_id = $_POST['delete_id'];
+    $delete_sql = "DELETE FROM captcha WHERE id = :id";
+    $stmt = $dbh->prepare($delete_sql);
+    $stmt->execute([':id' => $delete_id]);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+?>
+    
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -49,6 +60,36 @@ $stmt = $dbh->query($sql);
 <div class="buttons-container">
     <a href="pdfreservation.php" class="action-button">Télécharger PDF</a>
     <a href="../index.php" class="action-button">Retour au Back</a>
+</div>
+
+<div id="addPopupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeAddPopup()">&times;</span>
+        <h2>Ajouter un Captcha</h2>
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <label for="add_q">Question (Q):</label>
+            <input type="text" name="add_q" required>
+            <label for="add_r">Réponse (R):</label>
+            <input type="text" name="add_r" required>
+            <button type="submit" class="action-button">Ajouter</button>
+        </form>
+    </div>
+</div>
+
+
+<div id="editPopupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeEditPopup()">&times;</span>
+        <h2>Modifier un Captcha</h2>
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <input type="hidden" name="edit_id" id="edit_id">
+            <label for="edit_q">Question (Q):</label>
+            <input type="text" name="edit_q" id="edit_q" required>
+            <label for="edit_r">Réponse (R):</label>
+            <input type="text" name="edit_r" id="edit_r" required>
+            <button type="submit" class="action-button">Modifier</button>
+        </form>
+    </div>
 </div>
 
 </body>

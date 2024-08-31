@@ -17,7 +17,7 @@ include 'php/Database.php';
         <h1>Administration Fun Fair</h1>
         <div class="button-container">
             <a href="/logs" class="admin-button">logs</a>
-            <a href="/php/user.php" class="admin-button">Gestion Utilisateurs</a>
+            <a href="/php/users.php" class="admin-button">Gestion Utilisateurs</a>
             <a href="/php/captcha.php" class="admin-button">Gestion captcha</a>
             <a href="/captcha" class="admin-button">Gestion avis</a>
             <a href="/php/reservation.php" class="admin-button">Gestion reservation</a>
