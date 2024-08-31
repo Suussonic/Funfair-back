@@ -47,7 +47,7 @@ $stmt = $dbh->query($sql);
 </table>
 
 <div class="buttons-container">
-    <a href="pdfreservation.php" class="action-button">Télécharger PDF</a>
+    <a href="pdfatt.php" class="action-button">Télécharger PDF</a>
     <a href="../index.php" class="action-button">Retour au Back</a>
 </div>
 
