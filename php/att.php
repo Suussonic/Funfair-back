@@ -26,6 +26,7 @@ $stmt = $dbh->query($sql);
         <th>Âge Minimum</th>
         <th>Taille Minimum</th>
         <th>ID Stripe</th>
+        <th>Actions</th>
     </tr>
     <?php
     if ($stmt && $stmt->rowCount() > 0) {  // Vérifie si la requête a retourné des résultats
