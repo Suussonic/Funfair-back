@@ -35,6 +35,8 @@ $log_counts = json_encode(array_values($logs_par_jour));
     <style>
         canvas {
             border: 1px solid #000;
+        }
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
