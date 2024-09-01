@@ -1,14 +1,12 @@
 <?php
-global $dbh;
-include_once('Database.php');
-include('logs.php');
+error_reporting(E_ALL); 
+ini_set("display_errors", 1);
+include_once('models/Database.php');
 
 $errorInfo = false;
 
 if (!$dbh) {
-    // Enregistrer l'erreur dans un fichier de log et afficher un message générique
-    error_log('Connexion à la base de données échouée.');
-    die('Une erreur est survenue. Veuillez réessayer plus tard.');
+    die('Connexion à la base de données échouée.');
 }
 
 // Vérifier si le formulaire a été soumis
@@ -24,9 +22,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $preparedLoginRequest = $dbh->prepare($loginSql);
         $preparedLoginRequest->execute(['email' => $email]);
     } catch (PDOException $e) {
-        // Enregistrer l'erreur dans un fichier de log
-        error_log('Erreur lors de l\'exécution de la requête SQL : ' . $e->getMessage());
-        die('Une erreur est survenue. Veuillez réessayer plus tard.');
+        die('Erreur lors de l\'exécution de la requête SQL : ' . $e->getMessage());
     }
 
     // Récupérer l'utilisateur depuis la base de données
@@ -41,41 +37,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $_SESSION['lastname'] = $user['lastname'];
         $_SESSION['user'] = $user;
 
-        // Insérer le log de connexion
-        insert_logs('connexion');
         header('location:/'); // Rediriger vers la page d'accueil
         exit;
     } else {
         $errorInfo = true;
     }
 }
+
+require 'views/registration/login.view.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/loginform.css">
-    <title>Connexion</title>
-</head>
-<body>
-    <form method="POST">
-        <h1>Se connecter</h1>
-        <div>
-            <input id="email" placeholder="Mail" type="email" name="email" required>
-        </div>
-        <div>
-            <input id="password" placeholder="Mot de passe" type="password" name="password" required>
-        </div>
-        <?php
-        if ($errorInfo) {
-            echo "<p class='error'>Utilisateur ou Mot de passe incorrect</p>";
-        }
-        ?>
-        <input type="submit" class="btn" value="Se connecter">
-        <a href="https://admin.funfair.ovh">
-            <div id="btn2">Accueil</div>
-        </a>
-    </form>
-    <p>Mot de passe oublié ? <u style="color:#f1c40f;">Cliquez ici !</u></p>
-</body>
-</html>
