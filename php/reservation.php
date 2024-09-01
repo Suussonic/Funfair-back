@@ -26,7 +26,6 @@ $stmt = $dbh->query($sql);
         <th>Date</th>
         <th>Heure</th>
         <th>Email</th>
-        <th>Actions</th>
     </tr>
     <?php
     if ($stmt->rowCount() > 0) {
