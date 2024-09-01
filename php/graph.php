@@ -34,9 +34,13 @@ $log_counts = json_encode(array_values($logs_par_jour));
     <title>Courbe des logs</title>
     <style>
         canvas {
+            border: 1px solid #000;
+        }
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
             margin: 0;
         }
     </style>
