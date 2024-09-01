@@ -1,36 +1,25 @@
 <?php
-// Configuration de la base de données
-$servername = "localhost";
-$username = "root";  // Remplacez par votre nom d'utilisateur
-$password = "";  // Remplacez par votre mot de passe
-$dbname = "pa";  // Le nom de votre base de données
-
-// Connexion à la base de données
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérifier la connexion
-if ($conn->connect_error) {
-    die("Connexion échouée: " . $conn->connect_error);
-}
+include_once('Database.php');
 
 // Requête SQL pour regrouper les actions par jour
 $sql = "SELECT DATE(date) as log_date, COUNT(*) as log_count FROM logs GROUP BY log_date";
-$result = $conn->query($sql);
 
-// Tableau pour stocker les données des logs
-$logs_par_jour = [];
+try {
+    // Préparation et exécution de la requête
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
 
-if ($result->num_rows > 0) {
-    // Remplir le tableau avec les résultats de la requête
-    while($row = $result->fetch_assoc()) {
+    // Récupération des résultats
+    $logs_par_jour = [];
+    while ($row = $stmt->fetch()) {
         $logs_par_jour[$row['log_date']] = $row['log_count'];
     }
-} else {
-    echo "0 résultats";
-}
 
-// Fermer la connexion
-$conn->close();
+} catch (PDOException $e) {
+    // Gestion des erreurs SQL
+    error_log('Erreur SQL : ' . $e->getMessage());
+    die('Erreur lors de la récupération des données. Veuillez réessayer plus tard.');
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
