@@ -2,7 +2,7 @@
 session_start();
 include 'Database.php'; 
 
-// Gérer la demande de suppression
+
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
     $delete_sql = "DELETE FROM captcha WHERE id = :id";
@@ -12,7 +12,7 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// Gérer la demande d'ajout de captcha
+
 if (isset($_POST['add_q']) && isset($_POST['add_r'])) {
     $q = $_POST['add_q'];
     $r = $_POST['add_r'];
@@ -23,7 +23,7 @@ if (isset($_POST['add_q']) && isset($_POST['add_r'])) {
     exit;
 }
 
-// Géreée la demande de modification de captcha
+
 if (isset($_POST['edit_id']) && isset($_POST['edit_q']) && isset($_POST['edit_r'])) {
     $edit_id = $_POST['edit_id'];
     $edit_q = $_POST['edit_q'];
@@ -35,7 +35,7 @@ if (isset($_POST['edit_id']) && isset($_POST['edit_q']) && isset($_POST['edit_r'
     exit;
 }
 
-// Récupérer les captchas de la base de données
+
 $sql = "SELECT id, q, r FROM captcha";
 $stmt = $dbh->query($sql);
 ?>
@@ -89,7 +89,7 @@ $stmt = $dbh->query($sql);
     <a href="../index.php" class="action-button">Retour au Back</a>
 </div>
 
-<!-- Formulaires  pour Ajouter un Captcha -->
+
 <div id="addPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeAddPopup()">&times;</span>
@@ -104,7 +104,7 @@ $stmt = $dbh->query($sql);
     </div>
 </div>
 
-<!-- Formulaire pour Modifier un Captcha -->
+
 <div id="editPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeEditPopup()">&times;</span>
@@ -120,7 +120,7 @@ $stmt = $dbh->query($sql);
     </div>
 </div>
     
-<!-- Formulaire pour Ajouter un Captcha -->
+
 <div id="addPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeAddPopup()">&times;</span>
