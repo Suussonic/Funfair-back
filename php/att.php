@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 session_start();
 include 'Database.php'; 
 
-// Gérer la demande de suppression
+
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
     $delete_sql = "DELETE FROM attractions WHERE id = :id";
@@ -16,7 +16,7 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// Gérer la demande d'ajout d'une attraction
+
 if (isset($_POST['add_nom']) && isset($_POST['add_type']) && isset($_POST['add_prix']) && isset($_POST['add_agemin']) && isset($_POST['add_taillemin']) && isset($_POST['add_idstripe'])) {
     $nom = $_POST['add_nom'];
     $type = $_POST['add_type'];
@@ -32,7 +32,7 @@ if (isset($_POST['add_nom']) && isset($_POST['add_type']) && isset($_POST['add_p
     exit;
 }
 
-// Gérer la demande de modification d'une attraction
+
 if (isset($_POST['edit_id']) && isset($_POST['edit_nom']) && isset($_POST['edit_type']) && isset($_POST['edit_prix']) && isset($_POST['edit_agemin']) && isset($_POST['edit_taillemin']) && isset($_POST['edit_idstripe'])) {
     $edit_id = $_POST['edit_id'];
     $edit_nom = $_POST['edit_nom'];
@@ -49,7 +49,7 @@ if (isset($_POST['edit_id']) && isset($_POST['edit_nom']) && isset($_POST['edit_
     exit;
 }
 
-// Récupérer les attractions de la base de données
+
 $sql = "SELECT id, nom, type, prix, agemin, taillemin, idstripe FROM attractions";
 $stmt = $dbh->query($sql);
 ?>
@@ -111,7 +111,7 @@ $stmt = $dbh->query($sql);
     <a href="../index.php" class="action-button">Retour au Back</a>
 </div>
 
-<!-- Formulaire pour Ajouter une Attraction -->
+
 <div id="addPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeAddPopup()">&times;</span>
@@ -140,7 +140,7 @@ $stmt = $dbh->query($sql);
     </div>
 </div>
 
-<!-- Formulaire pour Modifier une Attraction -->
+
 <div id="editPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeEditPopup()">&times;</span>
