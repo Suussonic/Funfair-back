@@ -2,7 +2,7 @@
 session_start();
 include 'Database.php'; 
 
-$sql = "SELECT id, attrationid, montant, quantity, date, heur, email, FROM reservations";
+$sql = "SELECT id, attractionid, montant, quantity, date, heur, email FROM reservations";
 $stmt = $dbh->query($sql);
 ?>
 
