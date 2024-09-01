@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Envoyer un email à chaque utilisateur
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $to = $row['email'];
-                $subject = 'Important Notification';
+                $subject = 'Funfair Newsletter';
 
                 if (!sendMail($dbh, $to, $subject, $messageBody)) {
                     $errors[] = "Failed to send email to: $to";
@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/news.css">
     <title>Envoyer Newsletter</title>
 </head>
 <body>
