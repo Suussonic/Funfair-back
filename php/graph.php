@@ -43,6 +43,19 @@ $log_counts = json_encode(array_values($logs_par_jour));
             height: 100vh;
             margin: 0;
         }
+        .button-link {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .button-link:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
