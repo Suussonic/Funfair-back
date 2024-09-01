@@ -1,9 +1,5 @@
 <?php
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Inclure le fichier de connexion à la base de données
 include_once('Database.php');
 
 // Inclure la bibliothèque FPDF
@@ -44,7 +40,7 @@ class PDF extends FPDF
             $this->Cell($w[1], 6, $row['firstname'], 1);
             $this->Cell($w[2], 6, $row['lastname'], 1);
             $this->Cell($w[3], 6, $row['email'], 1);
-            $this->Cell($w[4], 6, $row['gender'], 1);
+            $this->Cell($w[4], 6, isset($row['gender']) ? $row['gender'] : '-', 1); // Gender peut être vide
             $this->Cell($w[5], 6, $row['role'], 1);
             $this->Ln();
         }
@@ -53,7 +49,7 @@ class PDF extends FPDF
 
 $pdf = new PDF();
 $pdf->AddPage();
-$header = array('ID', 'Firstname', 'Lastname', 'Email', 'Gender', 'role');
+$header = array('ID', 'Firstname', 'Lastname', 'Email', 'Gender', 'Role');
 
 $pdf->UserTable($header, $users);
 $pdf->Output('D', 'user_data.pdf');
