@@ -64,32 +64,76 @@ $stmt = $dbh->query($sql);
 <div id="addPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeAddPopup()">&times;</span>
-        <h2>Ajouter un Captcha</h2>
+        <h2>Ajouter un manège</h2>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <label for="add_q">Question (Q):</label>
-            <input type="text" name="add_q" required>
-            <label for="add_r">Réponse (R):</label>
-            <input type="text" name="add_r" required>
+            <label for="add_nom">Nom:</label>
+            <input type="text" name="add_nom" id="add_nom" required>
+            
+            <label for="add_type">Type:</label>
+            <input type="text" name="add_type" id="add_type" required>
+
+            <label for="add_prix">Prix:</label>
+            <input type="number" name="add_prix" id="add_prix" required>
+
+            <label for="add_agemin">Âge Min:</label>
+            <input type="number" name="add_agemin" id="add_agemin" required>
+
+            <label for="add_taillemin">Taille Min (m):</label>
+            <input type="number" step="0.1" name="add_taillemin" id="add_taillemin" required>
+
+            <label for="add_idstripe">ID Stripe:</label>
+            <input type="text" name="add_idstripe" id="add_idstripe" required>
+
             <button type="submit" class="action-button">Ajouter</button>
         </form>
     </div>
 </div>
 
 
+
 <div id="editPopupForm" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeEditPopup()">&times;</span>
-        <h2>Modifier un Captcha</h2>
+        <h2>Modifier un manège</h2>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <input type="hidden" name="edit_id" id="edit_id">
-            <label for="edit_q">Question (Q):</label>
-            <input type="text" name="edit_q" id="edit_q" required>
-            <label for="edit_r">Réponse (R):</label>
-            <input type="text" name="edit_r" id="edit_r" required>
+            
+            <label for="edit_nom">Nom:</label>
+            <input type="text" name="edit_nom" id="edit_nom" required>
+            
+            <label for="edit_type">Type:</label>
+            <input type="text" name="edit_type" id="edit_type" required>
+
+            <label for="edit_prix">Prix:</label>
+            <input type="number" name="edit_prix" id="edit_prix" required>
+
+            <label for="edit_agemin">Âge Min:</label>
+            <input type="number" name="edit_agemin" id="edit_agemin" required>
+
+            <label for="edit_taillemin">Taille Min (m):</label>
+            <input type="number" step="0.1" name="edit_taillemin" id="edit_taillemin" required>
+
+            <label for="edit_idstripe">ID Stripe:</label>
+            <input type="text" name="edit_idstripe" id="edit_idstripe" required>
+
             <button type="submit" class="action-button">Modifier</button>
         </form>
     </div>
 </div>
+
+<div id="deletePopupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeDeletePopup()">&times;</span>
+        <h2>Supprimer un manège</h2>
+        <p>Êtes-vous sûr de vouloir supprimer ce manège?</p>
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <input type="hidden" name="delete_id" id="delete_id">
+            <button type="submit" class="action-button">Supprimer</button>
+            <button type="button" class="action-button" onclick="closeDeletePopup()">Annuler</button>
+        </form>
+    </div>
+</div>
+
 
 </body>
 </html>
