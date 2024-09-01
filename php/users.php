@@ -2,7 +2,7 @@
 session_start();
 include 'Database.php'; 
 
-// Handle make admin request
+
 if (isset($_POST['make_admin_id'])) {
     $make_admin_id = $_POST['make_admin_id'];
     $update_sql = "UPDATE users SET role = 'admin' WHERE id = :id";
@@ -12,7 +12,7 @@ if (isset($_POST['make_admin_id'])) {
     exit;
 }
 
-// Fetch users from the database
+
 $sql = "SELECT id, firstname, lastname, email, role FROM users";
 $stmt = $dbh->query($sql);
 ?>
@@ -48,14 +48,14 @@ $stmt = $dbh->query($sql);
                 <td>" . htmlspecialchars($row["role"]) . "</td>
                 <td>";
                 
-            // Only show the "Make Admin" button if the user is not already an admin
+           
             if ($row["role"] !== "admin") {
                 echo "<form method='POST' action='" . $_SERVER['PHP_SELF'] . "' style='display:inline;'>
                         <input type='hidden' name='make_admin_id' value='" . htmlspecialchars($row['id']) . "'>
                         <button type='submit' class='admin-button'>Make Admin</button>
                       </form>";
             } else {
-                echo "Admin"; // Show "Admin" if the user is already an admin
+                echo "Admin"; 
             }
 
             echo "</td>
