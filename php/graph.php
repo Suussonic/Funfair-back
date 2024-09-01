@@ -42,6 +42,7 @@ $log_counts = json_encode(array_values($logs_par_jour));
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
         .button-link {
             margin-top: 20px;
