@@ -39,12 +39,6 @@ $stmt = $dbh->query($sql);
                 <td>" . htmlspecialchars($row["date"]) . "</td>
                 <td>" . htmlspecialchars($row["heure"]) . "</td>
                 <td>" . htmlspecialchars($row["email"]) . "</td>
-                <td>
-                    <button class='edit-button' onclick=\"openEditPopup(" . htmlspecialchars($row['id']) . ", '" . htmlspecialchars($row['attractionid']) . "', '" . htmlspecialchars($row['montant']) . "', '" . htmlspecialchars($row['quantity']) . "', '" . htmlspecialchars($row['date']) . "', '" . htmlspecialchars($row['heure']) . "', '" . htmlspecialchars($row['email']) . "')\">Modifier</button>
-                    <form method='POST' action='" . $_SERVER['PHP_SELF'] . "' style='display:inline;'>
-                        <input type='hidden' name='delete_id' value='" . htmlspecialchars($row['id']) . "'>
-                        <button type='submit' class='delete-button'>Supprimer</button>
-                    </form>
                 </td>
             </tr>";
         }
