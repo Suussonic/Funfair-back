@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
+
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once('Database.php'); // Assurez-vous que ce fichier initialise une connexion PDO nommée $dbh
+include_once('Database.php'); 
 
-// Fonction pour afficher la popup
+
 function displayPopup($message) {
     echo '
     <!DOCTYPE html>
@@ -84,23 +83,23 @@ function displayPopup($message) {
     </html>';
 }
 
-// Vérification des données de session
-var_dump($_SESSION);  // Affiche les données de session pour déboguer
 
-// Vérifier si l'utilisateur est connecté
+var_dump($_SESSION); 
+
+
 if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
     
-    // Débogage : afficher l'ID utilisateur
+  
     var_dump($userId);
 
     try {
-        // Préparer une requête pour récupérer le rôle de l'utilisateur
+      
         $stmt = $dbh->prepare('SELECT role FROM users WHERE id = :id LIMIT 1');
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Débogage : Vérifier les informations de l'utilisateur
+    
         var_dump($user);
 
         if (!$user) {
@@ -108,14 +107,14 @@ if (isset($_SESSION['id'])) {
             exit;
         }
 
-        // Débogage : Vérifier le rôle de l'utilisateur
+
         var_dump($user['role']);
 
         if ($user['role'] !== 'admin') {
             displayPopup("Vous n'avez pas l'autorisation pour accéder à cette page.");
             exit;
         } else {
-            // Débogage : Confirmer que l'utilisateur est admin
+   
             echo '<script>console.log("Utilisateur admin confirmé.");</script>';
         }
 
