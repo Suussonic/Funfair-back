@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 session_start();
 include 'Database.php'; 
 
-$sql = "SELECT id, attractionid, montant, quantity, date, heur, email FROM reservations";
+$sql = "SELECT id, attractionid, montant, quantity, jour, heur, email FROM reservations";
 $stmt = $dbh->query($sql);
 ?>
 
