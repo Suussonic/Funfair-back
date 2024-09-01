@@ -1,6 +1,8 @@
 <?php
 session_start();
 include 'Database.php'; 
+
+$sql = "SELECT id, attrationid, montant, quantity, jour, heur, email,
 ?>
 <!DOCTYPE html>
 <html lang="fr">
