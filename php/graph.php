@@ -47,8 +47,8 @@ $log_counts = json_encode(array_values($logs_par_jour));
         .button-link {
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
+            background-color: #ff6f61;
+            color: black;
             text-decoration: none;
             border-radius: 5px;
             font-family: Arial, sans-serif;
