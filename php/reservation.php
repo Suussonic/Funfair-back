@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+include 'Database.php'; 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
