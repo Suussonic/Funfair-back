@@ -20,42 +20,60 @@ try {
     error_log('Erreur SQL : ' . $e->getMessage());
     die('Erreur lors de la récupération des données. Veuillez réessayer plus tard.');
 }
+
+// Convertir les données pour l'utilisation avec Chart.js
+$dates = json_encode(array_keys($logs_par_jour));
+$log_counts = json_encode(array_values($logs_par_jour));
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histogramme des logs</title>
-    <style>
-        .bar {
-            width: 20px;
-            background-color: #4CAF50;
-            margin: 2px;
-            display: inline-block;
-        }
-        .chart {
-            display: flex;
-            align-items: flex-end;
-            height: 200px;
-            margin: 20px;
-        }
-        .label {
-            text-align: center;
-            margin-top: 5px;
-        }
-    </style>
+    <title>Courbe des logs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="chart">
-        <?php foreach ($logs_par_jour as $jour => $nombre_logs): ?>
-            <div class="bar" style="height: <?= $nombre_logs * 10 ?>px;" title="<?= $nombre_logs ?> logs"></div>
-        <?php endforeach; ?>
-    </div>
-    <div class="labels">
-        <?php foreach ($logs_par_jour as $jour => $nombre_logs): ?>
-            <div class="label"><?= $jour ?></div>
-        <?php endforeach; ?>
-    </div>
+    <canvas id="logsChart" width="400" height="200"></canvas>
+    <script>
+        // Récupération des données PHP
+        var dates = <?php echo $dates; ?>;
+        var logCounts = <?php echo $log_counts; ?>;
+
+        var ctx = document.getElementById('logsChart').getContext('2d');
+        var logsChart = new Chart(ctx, {
+            type: 'line', // Type de graphique
+            data: {
+                labels: dates, // Les dates comme labels
+                datasets: [{
+                    label: 'Nombre de logs par jour',
+                    data: logCounts,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    fill: true, // Remplissage sous la courbe
+                    tension: 0.3 // Lissage de la courbe
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Nombre de logs'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
