@@ -38,6 +38,13 @@ $stmt = $dbh->query($sql);
                 <td>" . htmlspecialchars($row['agemin']) . "</td>
                 <td>" . htmlspecialchars($row['taillemin']) . "</td>
                 <td>" . htmlspecialchars($row['idstripe']) . "</td>
+                 <td>
+                    <button class='edit-button' onclick=\"openEditPopup(" . htmlspecialchars($row['id']) . ", '" . htmlspecialchars($row['q']) . "', '" . htmlspecialchars($row['r']) . "')\">Modifier</button>
+                    <form method='POST' action='" . $_SERVER['PHP_SELF'] . "' style='display:inline;'>
+                        <input type='hidden' name='delete_id' value='" . htmlspecialchars($row['id']) . "'>
+                        <button type='submit' class='delete-button'>Supprimer</button>
+                    </form>
+                </td>
             </tr>";
         }
     } else {
