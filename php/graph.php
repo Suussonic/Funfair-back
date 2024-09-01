@@ -115,5 +115,8 @@ $log_counts = json_encode(array_values($logs_par_jour));
             ctx.fillText(dates[i], x - 20, height - padding + 20);
         }
     </script>
+    <div style="margin-top: 20px;">
+        <a href="/index.php" class="button-link">Retour aux Back</a>
+    </div>
 </body>
 </html>
