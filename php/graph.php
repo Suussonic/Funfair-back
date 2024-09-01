@@ -31,6 +31,8 @@ $log_counts = json_encode(array_values($logs_par_jour));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/captcha.css">
+    <link rel="shortcut icon" href="../asset/logo.png" type="image/x-icon">
     <title>Courbe des logs</title>
     <style>
         canvas {
