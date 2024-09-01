@@ -55,7 +55,7 @@ $log_counts = json_encode(array_values($logs_par_jour));
             font-size: 14px;
         }
         .button-link:hover {
-            background-color: #0056b3;
+            background-color: #ffa07a;
         }
     </style>
 </head>
