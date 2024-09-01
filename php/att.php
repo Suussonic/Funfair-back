@@ -11,7 +11,7 @@ $stmt = $dbh->query($sql);
 // Gérer la demande de suppression
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
-    $delete_sql = "DELETE FROM attraction WHERE id = :id";
+    $delete_sql = "DELETE FROM captcha WHERE id = :id";
     $stmt = $dbh->prepare($delete_sql);
     $stmt->execute([':id' => $delete_id]);
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -42,6 +42,7 @@ if (isset($_POST['add_nom']) && isset($_POST['add_type']) && isset($_POST['add_p
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
 // Gérer la demande de modification d'attraction
 if (isset($_POST['edit_id']) && isset($_POST['edit_nom']) && isset($_POST['edit_type']) &&
     isset($_POST['edit_prix']) && isset($_POST['edit_agemin']) && isset($_POST['edit_taillemin']) &&
@@ -71,7 +72,6 @@ if (isset($_POST['edit_id']) && isset($_POST['edit_nom']) && isset($_POST['edit_
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-
 ?>
     
 <!DOCTYPE html>
