@@ -1,6 +1,5 @@
 <?php
 include 'php/Database.php';
-// include 'php/verify.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +22,7 @@ include 'php/Database.php';
             <a href="/php/reservation.php" class="admin-button">Gestion reservation</a>
             <a href="/php/att.php" class="admin-button">Gestion attractions</a>
             <a href="/captcha" class="admin-button">Newsletter</a>
+            <a href="https://funfair.ovh" class="admin-button" target="_blank">Retour a FunFair</a>
         </div>
     </div>
 </body>
