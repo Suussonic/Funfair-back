@@ -73,9 +73,6 @@ $stmt = $dbh->query($sql);
     <a href="../index.php" class="action-button">Retour au Back</a>
 </div>
 
-<div class="back-to-home">
-    <a href="../index.php" class="action-button">Back</a>
-</div>
 
 <script src="../js/popup.js"></script>
 </body>
