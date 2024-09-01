@@ -53,7 +53,9 @@ $stmt = $dbh->query($sql);
     }
     ?>
 </table>
-
+<div class="back-to-home">
+    <a href="#" onclick="openAddPopup()">Ajouter un captcha</a>
+</div>
 <div class="buttons-container">
     <a href="pdfatt.php" class="action-button">Télécharger PDF</a>
     <a href="../index.php" class="action-button">Retour au Back</a>
