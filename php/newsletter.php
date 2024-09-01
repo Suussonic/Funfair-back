@@ -5,9 +5,14 @@ error_reporting(E_ALL);
 include 'Database.php';
 include 'mailer.php';
 
-
+$messageBody = 'Hello, this is an important notification for all users!'; // Valeur par défaut
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // Récupérer le contenu personnalisé du message s'il est envoyé
+    if (!empty($_POST['messageBody'])) {
+        $messageBody = $_POST['messageBody'];
+    }
 
     $sql = "SELECT email FROM users";
     
@@ -22,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $to = $row['email'];
                 $subject = 'Important Notification';
-                $messageBody = 'Hello, this is an important notification for all users!';
 
                 if (!sendMail($dbh, $to, $subject, $messageBody)) {
                     $errors[] = "Failed to send email to: $to";
@@ -54,8 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <h1>Envoyer la Newsletter</h1>
 
-    <!-- Formulaire avec un bouton -->
+    <!-- Formulaire pour personnaliser le message de la newsletter -->
     <form method="POST" action="">
+        <label for="messageBody">Message de la Newsletter:</label><br>
+        <textarea id="messageBody" name="messageBody" rows="10" cols="50"><?php echo htmlspecialchars($messageBody); ?></textarea><br><br>
         <button type="submit">Envoyer aux utilisateurs</button>
     </form>
 
