@@ -80,6 +80,12 @@ $stmt = $dbh->query($sql);
     ?>
 </table>
 
+
+<div class="buttons-container">
+    <a href="pdfuser.php" class="action-button">Télécharger PDF</a>
+    <a href="../index.php" class="action-button">Retour au Back</a>
+</div>
+
 <div class="back-to-home">
     <a href="#" onclick="openAddPopup()">Add User</a>
 </div>
