@@ -62,7 +62,7 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Ensure the popup is above all other content */
+    z-index: 1000; 
 }
 
 .popup-content {
@@ -71,7 +71,7 @@ body {
     border-radius: 10px;
     max-width: 400px;
     width: 90%;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
     position: relative;
     text-align: center;
 }
