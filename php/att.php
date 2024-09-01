@@ -4,6 +4,71 @@ include 'Database.php';
 // Requête SQL pour récupérer les réservations
 $sql = "SELECT id, nom, type, prix, agemin, taillemin, idstripe FROM attractions";
 $stmt = $dbh->query($sql);
+
+// Gérer la demande de suppression
+if (isset($_POST['delete_id'])) {
+    $delete_id = $_POST['delete_id'];
+    $delete_sql = "DELETE FROM attraction WHERE id = :id";
+    $stmt = $dbh->prepare($delete_sql);
+    $stmt->execute([':id' => $delete_id]);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+// Gérer la demande d'ajout d'attraction
+if (isset($_POST['add_nom']) && isset($_POST['add_type']) && isset($_POST['add_prix']) &&
+    isset($_POST['add_agemin']) && isset($_POST['add_taillemin']) && isset($_POST['add_idstripe'])) {
+    
+    $nom = $_POST['add_nom'];
+    $type = $_POST['add_type'];
+    $prix = $_POST['add_prix'];
+    $agemin = $_POST['add_agemin'];
+    $taillemin = $_POST['add_taillemin'];
+    $idstripe = $_POST['add_idstripe'];
+    
+    $insert_sql = "INSERT INTO attraction (nom, type, prix, agemin, taillemin, idstripe) 
+                   VALUES (:nom, :type, :prix, :agemin, :taillemin, :idstripe)";
+    $stmt = $dbh->prepare($insert_sql);
+    $stmt->execute([
+        ':nom' => $nom,
+        ':type' => $type,
+        ':prix' => $prix,
+        ':agemin' => $agemin,
+        ':taillemin' => $taillemin,
+        ':idstripe' => $idstripe
+    ]);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+// Gérer la demande de modification d'attraction
+if (isset($_POST['edit_id']) && isset($_POST['edit_nom']) && isset($_POST['edit_type']) &&
+    isset($_POST['edit_prix']) && isset($_POST['edit_agemin']) && isset($_POST['edit_taillemin']) &&
+    isset($_POST['edit_idstripe'])) {
+    
+    $edit_id = $_POST['edit_id'];
+    $edit_nom = $_POST['edit_nom'];
+    $edit_type = $_POST['edit_type'];
+    $edit_prix = $_POST['edit_prix'];
+    $edit_agemin = $_POST['edit_agemin'];
+    $edit_taillemin = $_POST['edit_taillemin'];
+    $edit_idstripe = $_POST['edit_idstripe'];
+    
+    $update_sql = "UPDATE attraction 
+                   SET nom = :nom, type = :type, prix = :prix, agemin = :agemin, taillemin = :taillemin, idstripe = :idstripe 
+                   WHERE id = :id";
+    $stmt = $dbh->prepare($update_sql);
+    $stmt->execute([
+        ':nom' => $edit_nom,
+        ':type' => $edit_type,
+        ':prix' => $edit_prix,
+        ':agemin' => $edit_agemin,
+        ':taillemin' => $edit_taillemin,
+        ':idstripe' => $edit_idstripe,
+        ':id' => $edit_id
+    ]);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 ?>
     
 <!DOCTYPE html>
