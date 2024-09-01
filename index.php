@@ -21,7 +21,7 @@ include 'php/Database.php';
             <a href="/captcha" class="admin-button">Gestion avis</a>
             <a href="/php/reservation.php" class="admin-button">Gestion reservation</a>
             <a href="/php/att.php" class="admin-button">Gestion attractions</a>
-            <a href="/captcha" class="admin-button">Newsletter</a>
+            <a href="/php/newsletter.php" class="admin-button">Newsletter</a>
             <a href="https://funfair.ovh" class="admin-button">Retour a FunFair</a>
         </div>
     </div>
