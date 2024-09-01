@@ -6,7 +6,7 @@ if (!$dbh) {
 }
 
 try {
-    // Requête pour obtenir tous les logs
+
     $query = "SELECT action, ip, date, firstname, email FROM logs ORDER BY date DESC";
     $stmt = $dbh->query($query);
 
@@ -16,7 +16,7 @@ try {
 
     $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Afficher les logs de manière propre
+
     echo "<table border='1'>";
     echo "<tr><th>Action</th><th>IP</th><th>Date</th><th>Prénom</th><th>Email</th></tr>";
     foreach ($logs as $log) {
