@@ -23,8 +23,6 @@ include 'php/Database.php';
             <a href="/php/reservation.php" class="admin-button">Gestion reservation</a>
             <a href="/php/att.php" class="admin-button">Gestion attractions</a>
             <a href="/captcha" class="admin-button">Newsletter</a>
-            <a href="gestion-horaires.html" class="admin-button">Gestion Horaires</a>
-            <a href="parametres.html" class="admin-button">Paramètres</a>
         </div>
     </div>
 </body>
