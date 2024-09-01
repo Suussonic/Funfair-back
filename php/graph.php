@@ -66,6 +66,21 @@ $log_counts = json_encode(array_values($logs_par_jour));
         ctx.lineTo(width - padding, height - padding);
         ctx.stroke();
 
+        // Ajouter les labels des ordonnées (axe Y)
+        ctx.fillStyle = 'black';
+        ctx.font = '12px Arial';
+        var ySteps = 5; // Nombre de graduations sur l'axe Y
+        for (var i = 0; i <= ySteps; i++) {
+            var yValue = Math.round((maxLogCount / ySteps) * i);
+            var yPosition = height - padding - (yValue * yRatio);
+            ctx.fillText(yValue, padding - 30, yPosition + 5);
+            // Dessiner des petites lignes pour les graduations
+            ctx.beginPath();
+            ctx.moveTo(padding - 5, yPosition);
+            ctx.lineTo(padding, yPosition);
+            ctx.stroke();
+        }
+
         // Dessiner la courbe
         ctx.beginPath();
         ctx.moveTo(padding, height - padding - logCounts[0] * yRatio);
@@ -87,9 +102,7 @@ $log_counts = json_encode(array_values($logs_par_jour));
             ctx.fill();
         }
 
-        // Ajouter les labels
-        ctx.fillStyle = 'black';
-        ctx.font = '12px Arial';
+        // Ajouter les labels des abscisses (axe X)
         for (var i = 0; i < dates.length; i++) {
             var x = padding + i * xStep;
             ctx.fillText(dates[i], x - 20, height - padding + 20);
