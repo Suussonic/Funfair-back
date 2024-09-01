@@ -10,7 +10,7 @@ include_once('Database.php');
 require('../fpdf186/fpdf.php');
 
 // Récupérer toutes les informations des utilisateurs
-$sql = "SELECT id, firstname, lastname, email, gender, roole FROM users";
+$sql = "SELECT id, firstname, lastname, email, gender, role FROM users";
 
 try {
     $stmt = $dbh->query($sql);
@@ -53,7 +53,7 @@ class PDF extends FPDF
 
 $pdf = new PDF();
 $pdf->AddPage();
-$header = array('ID', 'Firstname', 'Lastname', 'Email', 'Gender', 'roole');
+$header = array('ID', 'Firstname', 'Lastname', 'Email', 'Gender', 'role');
 
 $pdf->UserTable($header, $users);
 $pdf->Output('D', 'user_data.pdf');
