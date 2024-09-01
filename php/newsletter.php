@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Envoyer un email à chaque utilisateur
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $to = $row['email'];
-                $subject = 'Important Notification';
+                $subject = 'Fun Fair Newsletter';
                 $messageBody = 'Hello, this is an important notification for all users!';
 
                 if (!sendMail($dbh, $to, $subject, $messageBody)) {
