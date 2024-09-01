@@ -44,7 +44,8 @@ textarea {
     color: #f0f0f0;
     border: 1px solid #ff6f61;
     border-radius: 5px;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 1em;
     margin-bottom: 20px;
     outline: none;
